@@ -29,7 +29,7 @@ public class ContactImpl {
      * @param contactID the unique ID is provided by the application. 
      * @param contactName the name is provided by the user upon creation.
      */
-    void ContactImpl(int contactID, String contactName){
+    public ContactImpl(int contactID, String contactName){
         this.contactID = contactID;
         this.contactName = contactName;
     }
