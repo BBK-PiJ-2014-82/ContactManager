@@ -34,4 +34,13 @@ public class ContactImpl {
         this.contactName = contactName;
     }
     
+    /**
+     * Returns the unique contactID for this contact.
+     * 
+     * @return the contactID variable.
+     */
+    public int getID(){
+        return contactID;
+    }
+    
 }
