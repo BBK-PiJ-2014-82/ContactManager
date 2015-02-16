@@ -38,7 +38,23 @@ public class ContactImplTest {
     public void testContactNameReturn(){
         String checkName = "James Hill";
         String testName = newContact.getName();
-        assertEquals("The following incorrec name was returned: " + testName, checkName, testName);
+        assertEquals("The following incorrect name was returned: " + testName, checkName, testName);
     }
     
+    /**
+     * Test adding and getting notes to the ContactImpl.
+     */
+    @Test
+    public void testAddAndGetNotes(){
+        // Initial test is for contact with no notes.
+        String checkNotes = "";
+        String testNotes = newContact.getNotes();
+        assertEquals("A blank string was not returned:", checkNotes, testNotes);
+        
+        // Now test that the correct notes are returned after addition of notes.
+        newContact.addNotes(checkNotes);
+        checkNotes = "He is an extremely thorough programmer.";
+        testNotes = newContact.getNotes();
+        assertEquals("The following incorrect notes were returned: " + testNotes, checkNotes, testNotes);
+    }
 }
