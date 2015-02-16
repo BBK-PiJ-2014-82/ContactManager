@@ -52,8 +52,8 @@ public class ContactImplTest {
         assertEquals("A blank string was not returned:", checkNotes, testNotes);
         
         // Now test that the correct notes are returned after addition of notes.
-        newContact.addNotes(checkNotes);
         checkNotes = "He is an extremely thorough programmer.";
+        newContact.addNotes(checkNotes);
         testNotes = newContact.getNotes();
         assertEquals("The following incorrect notes were returned: " + testNotes, checkNotes, testNotes);
     }
