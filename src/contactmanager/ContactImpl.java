@@ -43,4 +43,12 @@ public class ContactImpl {
         return contactID;
     }
     
+    /**
+     * Returns the name for this contact.
+     * 
+     * @return the name recorded for this contact.
+     */
+    public String getName(){
+        return contactName;
+    }
 }
