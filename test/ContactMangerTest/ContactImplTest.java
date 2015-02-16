@@ -31,4 +31,14 @@ public class ContactImplTest {
         assertEquals("The following incorrect ID has been returned: " + testID, checkID, testID);
     }
     
+    /**
+     * Test the correct name is returned.
+     */
+    @Test
+    public void testContactNameReturn(){
+        String checkName = "James Hill";
+        String testName = newContact.getName();
+        assertEquals("The following incorrec name was returned: " + testName, checkName, testName);
+    }
+    
 }
