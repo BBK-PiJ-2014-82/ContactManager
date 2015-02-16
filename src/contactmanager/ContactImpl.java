@@ -32,6 +32,7 @@ public class ContactImpl {
     public ContactImpl(int contactID, String contactName){
         this.contactID = contactID;
         this.contactName = contactName;
+        this.contactNotes = "";
     }
     
     /**
@@ -50,5 +51,23 @@ public class ContactImpl {
      */
     public String getName(){
         return contactName;
+    }
+    
+    /**
+     * Returns the notes added to this contact or a blank if there are none.
+     * 
+     * @return the notes attached to this contact.
+     */
+    public String getNotes(){
+        return contactNotes;
+    }
+    
+    /**
+     * Adds the note entered by the user to the contact.
+     * 
+     * @param note the notes to be added.
+     */
+    public void addNotes(String note){
+        this.contactNotes = note;
     }
 }
