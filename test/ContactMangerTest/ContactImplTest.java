@@ -27,7 +27,7 @@ public class ContactImplTest {
     @Test
     public void testContactIDReturn(){
         int checkID = 1;
-        int testID = newContact.getID();
+        int testID = newContact.getId();
         assertEquals("The following incorrect ID has been returned: " + testID, checkID, testID);
     }
     
