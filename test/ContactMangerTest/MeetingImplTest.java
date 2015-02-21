@@ -1,6 +1,7 @@
 package ContactMangerTest;
 
 import contactmanager.*;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Set;
 import java.util.HashSet;
@@ -51,8 +52,8 @@ public class MeetingImplTest {
      */
     @Test
     public void testMeetingDateReturn(){
-        GregorianCalendar checkDate = new GregorianCalendar(2000, 01, 01);
-        GregorianCalendar testDate = newMeeting.getDate();
+        Calendar checkDate = new GregorianCalendar(2000, 01, 01);
+        Calendar testDate = newMeeting.getDate();
         assertEquals("An incorrect date was returned.", checkDate, testDate);
     }
     
