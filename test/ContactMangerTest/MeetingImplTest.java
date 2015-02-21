@@ -1,6 +1,7 @@
 package ContactMangerTest;
 
 import contactmanager.*;
+import interfaces.Contact;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Set;
@@ -16,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 public class MeetingImplTest {
     
     ContactImpl newContact;
-    Set<ContactImpl> contactList;
+    Set<Contact> contactList;
     GregorianCalendar date;
     MeetingImpl newMeeting;
     
