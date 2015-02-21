@@ -1,5 +1,7 @@
 package contactmanager;
 
+import java.util.Objects;
+
 /**
  * This class implements the 'Contact' interface.
  * 
@@ -33,6 +35,36 @@ public class ContactImpl implements interfaces.Contact {
         this.contactID = contactID;
         this.contactName = contactName;
         this.contactNotes = "";
+    }
+    
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 71 * hash + this.contactID;
+        hash = 71 * hash + Objects.hashCode(this.contactName);
+        hash = 71 * hash + Objects.hashCode(this.contactNotes);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ContactImpl other = (ContactImpl) obj;
+        if (this.contactID != other.contactID) {
+            return false;
+        }
+        if (!Objects.equals(this.contactName, other.contactName)) {
+            return false;
+        }
+        if (!Objects.equals(this.contactNotes, other.contactNotes)) {
+            return false;
+        }
+        return true;
     }
     
     @Override
