@@ -46,4 +46,14 @@ public class MeetingImplTest {
         assertEquals("An incorrect ID has been returned.", checkID, testID);
     }
     
+    /**
+     * Test the correct date is returned.
+     */
+    @Test
+    public void testMeetingDateReturn(){
+        GregorianCalendar checkDate = new GregorianCalendar(2000, 01, 01);
+        GregorianCalendar testDate = newMeeting.getDate();
+        assertEquals("An incorrect date was returned.", checkDate, testDate);
+    }
+    
 }
