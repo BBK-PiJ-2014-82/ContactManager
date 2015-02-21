@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 import java.util.Set;
 import java.util.TreeSet;
 import org.junit.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for the MeetingImpl class.
@@ -33,6 +34,16 @@ public class MeetingImplTest {
         
         // Create the meeting.
         newMeeting = new MeetingImpl(1, contactList, date);
+    }
+    
+    /**
+     * Test that the correct ID is returned.
+     */
+    @Test
+    public void testMeetingIDReturn(){
+        int checkID = 1;
+        int testID = newMeeting.getId();
+        assertEquals("The following incorrect ID has been returned: " + testID, checkID, testID);
     }
     
 }
