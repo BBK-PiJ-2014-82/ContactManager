@@ -3,7 +3,7 @@ package ContactMangerTest;
 import contactmanager.*;
 import java.util.GregorianCalendar;
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.HashSet;
 import org.junit.*;
 import static org.junit.Assert.assertEquals;
 
@@ -26,7 +26,7 @@ public class MeetingImplTest {
     public void initialize(){
         // Create the list of contacts.
         newContact = new ContactImpl(1, "James Hill");
-        contactList = new TreeSet<>();
+        contactList = new HashSet<>();
         contactList.add(newContact);
         
         // Add a date for the meeting.
@@ -43,7 +43,7 @@ public class MeetingImplTest {
     public void testMeetingIDReturn(){
         int checkID = 1;
         int testID = newMeeting.getId();
-        assertEquals("The following incorrect ID has been returned: " + testID, checkID, testID);
+        assertEquals("An incorrect ID has been returned.", checkID, testID);
     }
     
 }
