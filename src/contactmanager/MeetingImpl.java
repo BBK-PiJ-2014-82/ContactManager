@@ -48,4 +48,9 @@ public class MeetingImpl {
     public Calendar getDate(){
         return meetingDate;
     }
+    
+    
+    public Set<ContactImpl> getContacts(){
+        return meetingContacts;
+    }
 }
