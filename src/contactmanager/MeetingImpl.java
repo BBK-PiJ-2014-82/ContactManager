@@ -8,7 +8,7 @@ import java.util.Set;
  *
  * @author James
  */
-public class MeetingImpl implements interfaces.Meeting {
+public class MeetingImpl {
     
     /**
      * This is a unique ID through which the application can identify a
@@ -37,6 +37,11 @@ public class MeetingImpl implements interfaces.Meeting {
         this.meetingID = meetingID;
         this.meetingContacts = meetingContacts;
         this.meetingDate = meetingDate;
+    }
+    
+    
+    public int getId(){
+        return meetingID;
     }
     
 }
