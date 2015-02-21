@@ -1,5 +1,6 @@
 package contactmanager;
 
+import interfaces.Contact;
 import java.util.Calendar;
 import java.util.Set;
 
@@ -8,7 +9,7 @@ import java.util.Set;
  *
  * @author James
  */
-public class MeetingImpl {
+public class MeetingImpl implements interfaces.Meeting {
     
     /**
      * This is a unique ID through which the application can identify a
@@ -24,7 +25,7 @@ public class MeetingImpl {
     /**
      * This is a set containing the Contacts who attended the meeting.
      */
-    Set<ContactImpl> meetingContacts;
+    Set<Contact> meetingContacts;
     
     /**
      * This is the class constructor.
@@ -33,24 +34,24 @@ public class MeetingImpl {
      * @param meetingContacts a list of attendees for the meeting.
      * @param meetingDate the date at which the meeting takes place.
      */
-    public MeetingImpl(int meetingID, Set<ContactImpl> meetingContacts, Calendar meetingDate){
+    public MeetingImpl(int meetingID, Set<Contact> meetingContacts, Calendar meetingDate){
         this.meetingID = meetingID;
         this.meetingContacts = meetingContacts;
         this.meetingDate = meetingDate;
     }
     
-    
+    @Override
     public int getId(){
         return meetingID;
     }
     
-    
+    @Override
     public Calendar getDate(){
         return meetingDate;
     }
     
-    
-    public Set<ContactImpl> getContacts(){
+    @Override
+    public Set<Contact> getContacts(){
         return meetingContacts;
     }
 }
