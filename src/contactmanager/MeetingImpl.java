@@ -44,4 +44,8 @@ public class MeetingImpl {
         return meetingID;
     }
     
+    
+    public Calendar getDate(){
+        return meetingDate;
+    }
 }
