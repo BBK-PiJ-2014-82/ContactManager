@@ -57,4 +57,27 @@ public class MeetingImplTest {
         assertEquals("An incorrect date was returned.", checkDate, testDate);
     }
     
+    /**
+     * Test the correct contacts are returned.
+     */
+    @Test
+    public void testGetContacts(){
+        // Create a Set for checking.
+        ContactImpl checkContact = new ContactImpl(1, "James Hill");
+        Set checkSet = new HashSet();
+        checkSet.add(checkContact);
+        
+        // Test the 2 Sets.
+        Set testSet = newMeeting.getContacts();
+        assertEquals("The 2 sets are not identical.", checkSet, testSet);
+        
+        // Add new items to check Sets with more than 1 item.
+        ContactImpl secondContact = new ContactImpl(2, "Saisai");
+        checkSet.add(secondContact);
+        contactList.add(secondContact);
+        
+        // Test the larger sets.
+        testSet = newMeeting.getContacts();
+        assertEquals("The 2 double sets are not identical.", checkSet, testSet);
+    }
 }
