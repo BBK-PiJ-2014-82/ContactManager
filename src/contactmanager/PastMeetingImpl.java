@@ -9,7 +9,7 @@ import java.util.Set;
  *
  * @author James
  */
-public class PastMeetingImpl extends MeetingImpl {
+public class PastMeetingImpl extends MeetingImpl implements interfaces.PastMeeting {
     
     /**
      * This String is the notes for the meeting.
@@ -36,7 +36,7 @@ public class PastMeetingImpl extends MeetingImpl {
         this.meetingNotes = meetingNotes;
     }
     
-    
+    @Override
     public String getNotes(){
         return meetingNotes;
     }
