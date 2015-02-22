@@ -64,9 +64,8 @@ public class MeetingImplTest {
     @Test
     public void testGetContacts(){
         // Create a Set for checking.
-        ContactImpl checkContact = new ContactImpl(1, "James Hill");
         Set checkSet = new HashSet();
-        checkSet.add(checkContact);
+        checkSet.add(newContact);
         
         // Test the 2 Sets.
         Set testSet = newMeeting.getContacts();
