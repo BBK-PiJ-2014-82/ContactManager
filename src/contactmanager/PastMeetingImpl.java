@@ -14,7 +14,7 @@ public class PastMeetingImpl extends MeetingImpl {
     /**
      * This String is the notes for the meeting.
      */
-    String meetingNotes = "";
+    private String meetingNotes = "";
     
     /**
      * This is the class constructor.
