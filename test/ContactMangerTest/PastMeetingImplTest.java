@@ -6,7 +6,8 @@ import interfaces.Contact;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
-import org.junit.Before;
+import org.junit.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for the PastMeetingImpl class.
@@ -37,4 +38,17 @@ public class PastMeetingImplTest {
         newMeeting = new PastMeetingImpl(1, contactList, date);
     }
     
+    @Test
+    public void testAddingAndGettingNotes(){
+        // Create the 2 variales to check.
+        String checkNotes = "This meeting went extremely well.";
+        String testNotes;
+        
+        // Add the notes to the meeting.
+        newMeeting.addNotes(checkNotes);
+        
+        // Return and test the notes that were added to 'newMeeting'.
+        testNotes = newMeeting.getNotes();
+        assertEquals("The notes are not identical.", checkNotes, testNotes);
+    }
 }
