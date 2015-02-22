@@ -27,4 +27,17 @@ public class PastMeetingImpl extends MeetingImpl {
         super(meetingID, meetingContacts, meetingDate);
     }
     
+    /**
+     * This method allows a string of notes to be added to a past meeting.
+     * 
+     * @param meetingNotes the notes summarising the meeting.
+     */
+    public void addNotes(String meetingNotes){
+        this.meetingNotes = meetingNotes;
+    }
+    
+    
+    public String getNotes(){
+        return meetingNotes;
+    }
 }
