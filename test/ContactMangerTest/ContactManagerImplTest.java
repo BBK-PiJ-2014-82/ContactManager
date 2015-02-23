@@ -59,7 +59,7 @@ public class ContactManagerImplTest {
         assertEquals("Incorrect size returned.", checkSize, testSize);
         
         // Test the 1st contact name is correct.
-        checkString = contactManager.getContacts(0).getName();
+        checkString = contactManager.getContacts(0)..getName();
         testString = name1;
         assertEquals("Incorrect name1 returned.", checkString, testString);
         
@@ -126,7 +126,7 @@ public class ContactManagerImplTest {
         
         // Test past date results in IllegalArgumentException.
         checkExcept = new IllegalArgumentException();
-        testExcept = contactManager.addFutureMeeting(1, contactList, pastDate);
+        testExcept = contactManager.addFutureMeeting(contactList, pastDate);
         assertEquals("Incorrect error has been returned.", checkExcept, testExcept);
         
         // Create set that doesn't exist in ContactManager.
@@ -136,12 +136,12 @@ public class ContactManagerImplTest {
         
         // Test unknown contact results in IllegalArgumentException.
         checkExcept = new IllegalArgumentException();
-        testExcept = contactManager.addFutureMeeting(1, nonExistList, futureDate);
+        testExcept = contactManager.addFutureMeeting(nonExistList, futureDate);
         assertEquals("Incorrect error has been returned.", checkExcept, testExcept);
         
         // Create the future meeting & test the ID is returned correctly.
         checkID = 1;
-        testID = contactManager.addFutureMeeting(1, contactList, futureDate);
+        testID = contactManager.addFutureMeeting(contactList, futureDate);
         assertEquals("Incorrect meeting ID has been returned.", checkID, testID);
         
         // Create and test the FutureMeeting is added to the contact manager.
