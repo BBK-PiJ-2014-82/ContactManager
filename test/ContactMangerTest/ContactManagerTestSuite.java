@@ -7,7 +7,8 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses(
         {
             ContactImplTest.class,
-            MeetingImplTest.class
+            MeetingImplTest.class,
+            PastMeetingImplTest.class
         })
 
 public class ContactManagerTestSuite {}
