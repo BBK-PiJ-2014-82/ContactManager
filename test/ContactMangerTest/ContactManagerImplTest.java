@@ -140,18 +140,25 @@ public class ContactManagerImplTest {
         int testID;
         Meeting checkMeet;
         Meeting testMeet;
+        Calendar checkDate;
+        Calendar testDate;
         
         // Prepare the contactList.
         contactList = contactManager.getContacts(0,1);
         
         // Create the future meeting & test the ID is returned correctly.
-        checkID = 1;
+        checkID = 0;
         testID = contactManager.addFutureMeeting(contactList, futureDate);
         assertEquals("Incorrect meeting ID has been returned.", checkID, testID);
         
+        // Check the date on added meeting is correct.
+        checkDate = futureDate;
+        testDate = contactManager.getMeeting(0).getDate();
+        assertEquals("Incorrect date has been returned.", checkDate, testDate);
+        
         // Create and test the FutureMeeting is added to the contact manager.
-        checkMeet = new MeetingImpl(1, contactList, futureDate);
-        testMeet = contactManager.getMeeting(1);
+        checkMeet = new MeetingImpl(0, contactList, futureDate);
+        testMeet = contactManager.getMeeting(0);
         assertEquals("Incorrect ID has been returned.", checkMeet, testMeet);
         
         // Test getting non-existent meeting.
