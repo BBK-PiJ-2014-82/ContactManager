@@ -43,8 +43,6 @@ public class ContactManagerImplTest {
         String note2 = "Best";
         String checkString;
         String testString;
-        Exception checkExcept;
-        Exception testExcept;
         Contact[] contactArray;
         
         // add new contacts.
@@ -80,31 +78,52 @@ public class ContactManagerImplTest {
         checkString = contactArray[0].getNotes();
         testString = note2;
         assertEquals("Incorrect note2 returned.", checkString, testString);
-        
-        // Test the exception returned from null name.
-        checkExcept = new NullPointerException();
-        testExcept = contactManager.addNewContact(null, "Great");
-        assertEquals("Incorrect exception returned.", checkExcept, testExcept);
-        
-        // Test the exception returned from null note.
-        checkExcept = new NullPointerException();
-        testExcept = contactManager.addNewContact("James", null);
-        assertEquals("Incorrect exception returned.", checkExcept, testExcept);
-        
-        // Test the exception returned from single wrong ID.
-        checkExcept = new IllegalArgumentException();
-        testExcept = contactManager.getContacts(2);
-        assertEquals("Incorrect exception returned.", checkExcept, testExcept);
-        
-        // Test the exception returned from multiple wrong IDs.
-        checkExcept = new IllegalArgumentException();
-        testExcept = contactManager.getContacts(2,3,4);
-        assertEquals("Incorrect exception returned.", checkExcept, testExcept);
-        
-        // Test the exception returned from mixed right & wrong IDs.
-        checkExcept = new IllegalArgumentException();
-        testExcept = contactManager.getContacts(1,2);
-        assertEquals("Incorrect exception returned.", checkExcept, testExcept);
+    }
+    
+    /**
+     * Test null name throws correct exception when adding contact.
+     */
+    @Test (expected = NullPointerException.class)
+    public void addContactThrowsExceptionWithNullName(){
+        contactManager.addNewContact(null, "Great");
+    }
+    
+    /**
+     * Test null note throws correct exception when adding contact.
+     */
+    @Test (expected = NullPointerException.class)
+    public void addContactThrowsExceptionWithNullNote(){
+        contactManager.addNewContact("James", null);
+    }
+    
+    /**
+     * Test the exception returned from single wrong ID.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void checkingSetForNonExistentIDThrowsException(){
+        contactManager.addNewContact("James Hill", "Great");
+        contactManager.addNewContact("赛赛", "太好了");
+        contactManager.getContacts(2);
+    }
+    
+    /**
+     * Test the exception returned from multiple wrong IDs.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void checkSetForMultipleNonExistentIDThrowsException(){
+        contactManager.addNewContact("James Hill", "Great");
+        contactManager.addNewContact("赛赛", "太好了");
+        contactManager.getContacts(2,3,4);
+    }
+    
+    /**
+     * Test the exception returned from mixed right & wrong IDs.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void checkSetForMixedExistenceIDThrowsException(){
+        contactManager.addNewContact("James Hill", "Great");
+        contactManager.addNewContact("赛赛", "太好了");
+        contactManager.getContacts(1,2);
     }
     
     /**
