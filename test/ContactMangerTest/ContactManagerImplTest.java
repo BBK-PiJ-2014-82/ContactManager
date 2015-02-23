@@ -136,8 +136,6 @@ public class ContactManagerImplTest {
         contactManager.addNewContact("Saisai", "Best");
         
         // Create variables.
-        Exception checkExcept;
-        Exception testExcept;
         int checkID;
         int testID;
         Meeting checkMeet;
@@ -145,21 +143,6 @@ public class ContactManagerImplTest {
         
         // Prepare the contactList.
         contactList = contactManager.getContacts(0,1);
-        
-        // Test past date results in IllegalArgumentException.
-        checkExcept = new IllegalArgumentException();
-        testExcept = contactManager.addFutureMeeting(contactList, pastDate);
-        assertEquals("Incorrect error has been returned.", checkExcept, testExcept);
-        
-        // Create set that doesn't exist in ContactManager.
-        Set<Contact> nonExistList = new HashSet<>();
-        Contact nonExistContact = new ContactImpl(3, "Geoffrey");
-        nonExistList.add(nonExistContact);
-        
-        // Test unknown contact results in IllegalArgumentException.
-        checkExcept = new IllegalArgumentException();
-        testExcept = contactManager.addFutureMeeting(nonExistList, futureDate);
-        assertEquals("Incorrect error has been returned.", checkExcept, testExcept);
         
         // Create the future meeting & test the ID is returned correctly.
         checkID = 1;
@@ -177,4 +160,31 @@ public class ContactManagerImplTest {
         assertEquals("A null is not returned by getMeeting.", checkMeet, testMeet);
     }
     
+    /**
+     * Test add future meeting with past date throws IllegalArgumentException.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void addFutureMeetingThrowsExceptionWithPastDate(){
+        // add new contacts.
+        contactManager.addNewContact("James Hill", "Great");
+        contactManager.addNewContact("Saisai", "Best");
+        
+        // Prepare the contactList.
+        contactList = contactManager.getContacts(0,1);
+        
+        contactManager.addFutureMeeting(contactList, pastDate);
+    }
+    
+    /**
+     * Test adding unknown contact results in IllegalArgumentException.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void addFutureMeetingThrowsExceptionWithUnknownContact(){
+        // Create set that doesn't exist in ContactManager.
+        Set<Contact> nonExistList = new HashSet<>();
+        Contact nonExistContact = new ContactImpl(3, "Geoffrey");
+        nonExistList.add(nonExistContact);
+        
+        contactManager.addFutureMeeting(nonExistList, futureDate);
+    }
 }
