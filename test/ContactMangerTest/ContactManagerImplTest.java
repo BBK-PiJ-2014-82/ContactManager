@@ -45,6 +45,7 @@ public class ContactManagerImplTest {
         String testString;
         Exception checkExcept;
         Exception testExcept;
+        Contact[] contactArray;
         
         // add new contacts.
         contactManager.addNewContact(name1, note1);
@@ -59,22 +60,24 @@ public class ContactManagerImplTest {
         assertEquals("Incorrect size returned.", checkSize, testSize);
         
         // Test the 1st contact name is correct.
-        checkString = contactManager.getContacts(0)..getName();
+        contactArray = contactManager.getContacts(0).toArray(new Contact[1]);
+        checkString = contactArray[0].getName();
         testString = name1;
         assertEquals("Incorrect name1 returned.", checkString, testString);
         
         // Test the 1st contact note is correct.
-        checkString = contactManager.getContacts(0).getNotes();
+        checkString = contactArray[0].getNotes();
         testString = note1;
         assertEquals("Incorrect note1 returned.", checkString, testString);
         
         // Test the 2nd contact name is correct.
-        checkString = contactManager.getContacts(1).getName();
+        contactArray = contactManager.getContacts(1).toArray(new Contact[1]);
+        checkString = contactArray[0].getName();
         testString = name2;
         assertEquals("Incorrect name2 returned.", checkString, testString);
         
         // Test the 2nd contact note is correct.
-        checkString = contactManager.getContacts(1).getNotes();
+        checkString = contactArray[0].getNotes();
         testString = note2;
         assertEquals("Incorrect note2 returned.", checkString, testString);
         
