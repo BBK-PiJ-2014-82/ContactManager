@@ -2,10 +2,7 @@ package ContactMangerTest;
 
 import contactmanager.*;
 import interfaces.Contact;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.*;
 import org.junit.*;
 import static org.junit.Assert.assertEquals;
 
