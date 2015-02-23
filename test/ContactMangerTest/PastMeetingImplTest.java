@@ -38,9 +38,27 @@ public class PastMeetingImplTest {
         newMeeting = new PastMeetingImpl(1, contactList, date);
     }
     
+    /**
+     * Check that returning notes from a field without having added notes
+     * returns an empty string.
+     */
+    @Test
+    public void testGettingEmptyString(){
+        // Create the 2 variables to check.
+        String checkNotes = "";
+        String testNotes;
+        
+        // Get notes from initialized meeting and check.
+        testNotes = newMeeting.getNotes();
+        assertEquals("The notes returned are not blank.", checkNotes, testNotes);
+    }
+    
+    /**
+     * Test that the same notes are returned after adding notes.
+     */
     @Test
     public void testAddingAndGettingNotes(){
-        // Create the 2 variales to check.
+        // Create the 2 variables to check.
         String checkNotes = "This meeting went extremely well.";
         String testNotes;
         
