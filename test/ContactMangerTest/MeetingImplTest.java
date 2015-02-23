@@ -1,7 +1,7 @@
 package ContactMangerTest;
 
 import contactmanager.*;
-import interfaces.Contact;
+import interfaces.*;
 import java.util.*;
 import org.junit.*;
 import static org.junit.Assert.assertEquals;
@@ -13,10 +13,10 @@ import static org.junit.Assert.assertEquals;
  */
 public class MeetingImplTest {
     
-    ContactImpl newContact;
+    Contact newContact;
     Set<Contact> contactList;
     GregorianCalendar date;
-    MeetingImpl newMeeting;
+    Meeting newMeeting;
     
     /**
      * Create a simple 'MeetingImpl' to use in all other tests.
