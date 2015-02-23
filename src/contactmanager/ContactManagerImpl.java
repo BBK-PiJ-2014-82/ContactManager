@@ -25,12 +25,12 @@ public class ContactManagerImpl {
     /**
      * This is the next free number to be used for contact IDs.
      */
-    int nextContactID = 0;
+    private int nextContactID = 0;
     
     /**
      * This is the next free number to be used for meeting IDs.
      */
-    int nextMeetingID = 0;
+    private int nextMeetingID = 0;
     
     /**
      * This is the class constructor.
