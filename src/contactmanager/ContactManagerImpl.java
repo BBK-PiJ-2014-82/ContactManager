@@ -81,7 +81,6 @@ public class ContactManagerImpl {
     public Set<Contact> getContacts(int... ids) throws IllegalArgumentException {
         HashSet<Contact> returnContacts = new HashSet();
         boolean exists;
-        
         for(int i = 0; i < ids.length; i++){
             exists = false;
             for(ContactImpl cont : contacts){
@@ -94,7 +93,6 @@ public class ContactManagerImpl {
                 throw new IllegalArgumentException();
             }
         }
-        
         return returnContacts;
     }
     
@@ -103,13 +101,11 @@ public class ContactManagerImpl {
             throw new NullPointerException();
         } else {
             HashSet<Contact> returnContacts = new HashSet();
-            
             for(ContactImpl cont : contacts){
                 if(cont.contactName.contains(name)){
                     returnContacts.add(cont);
                 }
             }
-            
             return returnContacts;
         }
     }
