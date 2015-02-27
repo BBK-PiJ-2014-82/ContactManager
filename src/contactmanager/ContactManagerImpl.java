@@ -1,6 +1,7 @@
 package contactmanager;
 
 import interfaces.Contact;
+import interfaces.Meeting;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
@@ -44,7 +45,7 @@ public class ContactManagerImpl {
     
     
     public int addFutureMeeting(Set<Contact> contacts, Calendar date) throws IllegalArgumentException {
-        if(!contacts.containsAll(this.contacts)){
+        if(!this.contacts.containsAll(contacts)){
             throw new IllegalArgumentException();
         } else if (date.before(Calendar.getInstance())){
             throw new IllegalArgumentException();
@@ -56,7 +57,7 @@ public class ContactManagerImpl {
         }
     }
     
-    public MeetingImpl getMeeting(int id){
+    public Meeting getMeeting(int id){
         for(MeetingImpl meet : meetings){
             if(meet.meetingID == id){
                 return meet;
