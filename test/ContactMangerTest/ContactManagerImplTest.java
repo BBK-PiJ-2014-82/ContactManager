@@ -5,7 +5,6 @@ import interfaces.*;
 import java.util.*;
 import org.junit.*;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -222,7 +221,7 @@ public class ContactManagerImplTest {
     @Test
     public void testGetContactsWithString(){
         // Create variables.
-        boolean exists = true;
+        boolean nameFound = true;
         String testString = "Hill";
         
         // add new contacts.
@@ -241,11 +240,11 @@ public class ContactManagerImplTest {
         // Loop through contacts to check they all contain correct string.
         for(Contact cont : contactList){
             if(!cont.getName().contains(testString)){
-                exists = false;
+                nameFound = false;
             }
         }
         
-        assertFalse("These strings do not contain the same text.", exists);
+        assertTrue("These strings do not contain the same text.", nameFound);
     }
     
     /**
