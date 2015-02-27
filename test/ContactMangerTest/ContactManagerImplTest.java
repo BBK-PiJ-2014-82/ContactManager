@@ -239,8 +239,8 @@ public class ContactManagerImplTest {
         assertEquals("Incorrect size returned.", checkSize, testSize);
         
         // Loop through contacts to check they all contain correct string.
-        for(Contact contacts : contactList){
-            if(!contacts.getName().contains(testString)){
+        for(Contact cont : contactList){
+            if(!cont.getName().contains(testString)){
                 exists = false;
             }
         }
