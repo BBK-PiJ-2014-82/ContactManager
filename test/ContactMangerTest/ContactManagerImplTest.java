@@ -264,4 +264,142 @@ public class ContactManagerImplTest {
         contactManager.getContacts("");
     }
     
+    /**
+     * Test add past meeting works correctly.
+     */
+    @Test
+    public void testAddNewPastMeetingAndGetPastMeeting(){
+        // add new contacts.
+        contactManager.addNewContact("James Hill", "Great");
+        contactManager.addNewContact("Saisai", "Best");
+        
+        // Create text for the meeting notes.
+        String notes = "This meeting went extremely well.";
+        
+        // Create variables.
+        boolean exists;
+        Calendar checkDate;
+        Calendar testDate;
+        Set<Contact> contactSet;
+        String checkNotes;
+        String testNotes;
+        
+        // Prepare the contactList.
+        contactList = contactManager.getContacts(0,1);
+        
+        // Create the meeting.
+        contactManager.addNewPastMeeting(contactList, pastDate, notes);
+        
+        // Check the 1st contact was added to the meeting correctly.
+        contactSet = contactManager.getPastMeeting(0).getContacts();
+        exists = false;
+        
+        for(Contact contacts : contactSet){
+            if(contacts.getName().equals("James Hill") && contacts.getNotes().equals("Great")){
+                exists = true;
+            }
+        }
+        assertTrue("Incorrect contacts have been returned.", exists);
+        
+        // Check the 2nd contact was added to the meeting correctly.
+        contactSet = contactManager.getPastMeeting(0).getContacts();
+        exists = false;
+        
+        for(Contact contacts : contactSet){
+            if(contacts.getName().equals("Saisai") && contacts.getNotes().equals("Best")){
+                exists = true;
+            }
+        }
+        assertTrue("Incorrect contacts have been returned.", exists);
+        
+        // Check the date on added meeting is correct.
+        checkDate = pastDate;
+        testDate = contactManager.getPastMeeting(0).getDate();
+        assertEquals("Incorrect date has been returned.", checkDate, testDate);
+        
+        // Check that the notes returned are correct.
+        checkNotes = notes;
+        testNotes = contactManager.getPastMeeting(0).getNotes;
+        assertEquals("Incorrect date has been returned.", checkNotes, testNotes);
+    }
+    
+    /**
+     * Test addNewPastMeeting throws exception on null contacts.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testAddNewPastMeetingThrowsExceptionForNullContacts(){
+        contactManager.addNewPastMeeting(contactList, pastDate, "Hello.");
+    }
+    
+    /**
+     * Test addNewPastMeeting throws exception on non-existent contact.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testAddNewPastMeetingThrowsExceptionForNonExistentContacts(){
+        Contact newContact = new ContactImpl(1, "James Hill");
+        contactList.add(newContact);
+        contactManager.addNewPastMeeting(contactList, pastDate, "Hello.");
+    }
+    
+    /**
+     * Test addNewPastMeeting throws exception on null date.
+     */
+    @Test (expected = NullPointerException.class)
+    public void testAddNewPastMeetingThrowsExceptionForNullDate(){
+        GregorianCalendar nullDate = null;
+        contactManager.addNewContact("James Hill", "Great");
+        contactList = contactManager.getContacts(0);
+        contactManager.addNewPastMeeting(contactList, nullDate, "Hello.");
+    }
+    
+    /**
+     * Test addNewPastMeeting throws exception on null notes.
+     */
+    @Test (expected = NullPointerException.class)
+    public void testAddNewPastMeetingThrowsExceptionForNullNotes(){
+        contactManager.addNewContact("James Hill", "Great");
+        contactList = contactManager.getContacts(0);
+        String notes;
+        contactManager.addNewPastMeeting(contactList, pastDate, notes);
+    }
+    
+    /**
+     * Test addNewPastMeeting throws exception on empty notes.
+     */
+    @Test (expected = NullPointerException.class)
+    public void testAddNewPastMeetingThrowsExceptionForEmptyNotes(){
+        contactManager.addNewContact("James Hill", "Great");
+        contactList = contactManager.getContacts(0);
+        String notes = "";
+        contactManager.addNewPastMeeting(contactList, pastDate, notes);
+    }
+    
+    /**
+     * Test getPastMeeting returns null when meetingID doesn't exist.
+     */
+    @Test
+    public void testGetPastMeetingReturnsNull(){
+        Meeting checkMeet = null;
+        Meeting testMeet = contactManager.getPastMeeting(5);
+        assertEquals("The returned meeting is not null.", checkMeet, testMeet);
+    }
+    
+    /**
+     * Test getPastMeeting throws incorrect exception when returned meeting is
+     * a future meeting.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testGetPastMeetingThrowsExceptionForFutureMeetings(){
+        // add new contacts & create the set.
+        contactManager.addNewContact("James Hill", "Great");
+        contactManager.addNewContact("Saisai", "Best");
+        contactList = contactManager.getContacts();
+        
+        // Add a future meeting to the list.
+        contactManager.addFutureMeeting(contactList, futureDate);
+        
+        // Test the condition.
+        contactManager.getPastMeeting(0);
+    }
+    
 }
