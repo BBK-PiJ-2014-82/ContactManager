@@ -5,6 +5,7 @@ import interfaces.*;
 import java.util.*;
 import org.junit.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -214,4 +215,45 @@ public class ContactManagerImplTest {
         
         contactManager.addFutureMeeting(nonExistList, futureDate);
     }
+    
+    /**
+     * Test getting contacts with partial String name.
+     */
+    @Test
+    public void testGetContactsWithString(){
+        // Create variables.
+        boolean exists = true;
+        String testString = "Hill";
+        
+        // add new contacts.
+        contactManager.addNewContact("James Hill", "Great");
+        contactManager.addNewContact("Saisai Hill", "Best");
+        contactManager.addNewContact("Ian King", "Cool");
+        
+        // return set using ID's.
+        contactList = contactManager.getContacts(testString);
+        
+        // Test the size of the set is correct.
+        int checkSize = 2;
+        int testSize = contactList.size();
+        assertEquals("Incorrect size returned.", checkSize, testSize);
+        
+        // Loop through contacts to check they all contain correct string.
+        for(Contact contacts : contactList){
+            if(!contacts.getName().contains(testString)){
+                exists = false;
+            }
+        }
+        
+        assertFalse("These strings do not contain the same text.", exists);
+    }
+    
+    /**
+     * Test null name throws correct exception when searching for contacts.
+     */
+    @Test (expected = NullPointerException.class)
+    public void searchContactsThrowsExceptionWithNullName(){
+        contactManager.getContacts();
+    }
+    
 }
