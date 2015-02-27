@@ -256,4 +256,12 @@ public class ContactManagerImplTest {
         contactManager.getContacts();
     }
     
+    /**
+     * Test an empty string throws a null pointer exception.
+     */
+    @Test (expected = NullPointerException.class)
+    public void searchContactsThrowsExceptionWithEmtpyString(){
+        contactManager.getContacts("");
+    }
+    
 }
