@@ -97,4 +97,20 @@ public class ContactManagerImpl {
         
         return returnContacts;
     }
+    
+    public Set<Contact> getContacts(String name) throws NullPointerException {
+        if(name == null || name.equals("")){
+            throw new NullPointerException();
+        } else {
+            HashSet<Contact> returnContacts = new HashSet();
+            
+            for(ContactImpl cont : contacts){
+                if(cont.contactName.contains(name)){
+                    returnContacts.add(cont);
+                }
+            }
+            
+            return returnContacts;
+        }
+    }
 }
