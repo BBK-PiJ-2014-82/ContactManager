@@ -252,7 +252,8 @@ public class ContactManagerImplTest {
      */
     @Test (expected = NullPointerException.class)
     public void searchContactsThrowsExceptionWithNullName(){
-        contactManager.getContacts();
+        String notExist = null;
+        contactManager.getContacts(notExist);
     }
     
     /**
