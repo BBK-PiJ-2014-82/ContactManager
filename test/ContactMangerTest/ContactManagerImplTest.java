@@ -507,7 +507,9 @@ public class ContactManagerImplTest {
         date = new GregorianCalendar(2020, 9, 10);
         contactManager.addFutureMeeting(list2, date);
         
-        Contact testContact = (Contact)contactManager.getContacts(0);
+        Contact[] testArray = new Contact[1];
+        contactManager.getContacts(0).toArray(testArray);
+        Contact testContact = testArray[0];
         List<Meeting> testList = contactManager.getFutureMeetingList(testContact);
         
         // check the size of the returned list.
@@ -550,10 +552,12 @@ public class ContactManagerImplTest {
         contactManager.addNewContact("Saisai Hill", "Best");
         
         // Create a new future meeting with the 1st contact.
-        contactList.add((Contact)contactManager.getContacts("Saisai"));
+        contactList = contactManager.getContacts("Saisai");
         contactManager.addFutureMeeting(contactList, futureDate);
         
-        Contact checkContact = (Contact) contactManager.getContacts("James");
+        Contact[] testArray = new Contact[1];
+        contactManager.getContacts("James").toArray(testArray);
+        Contact checkContact = testArray[0];
         
         // Check that the returned meeting is null.
         List<Meeting> testMeet = contactManager.getFutureMeetingList(checkContact);
