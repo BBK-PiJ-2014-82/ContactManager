@@ -2,6 +2,8 @@ package contactmanager;
 
 import interfaces.Contact;
 import interfaces.Meeting;
+import interfaces.FutureMeeting;
+import interfaces.PastMeeting;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
@@ -50,12 +52,25 @@ public class ContactManagerImpl {
         } else if (date.before(Calendar.getInstance())){
             throw new IllegalArgumentException();
         } else {
-            MeetingImpl newMeet = new MeetingImpl(nextMeetingID, contacts, date);
+            MeetingImpl newMeet = new FutureMeetingImpl(nextMeetingID, contacts, date);
             meetings.add(newMeet);
             nextMeetingID++;
             return newMeet.meetingID;
         }
     }
+    
+    
+    public PastMeeting getPastMeeting(int id) throws IllegalArgumentException {
+        Meeting meet = getMeeting(id);
+        if(meet instanceof PastMeeting) {
+            return (PastMeeting) meet;
+        } else if (meet instanceof FutureMeeting) {
+            throw new IllegalArgumentException();
+        } else {
+            return null;
+        }
+    }
+    
     
     public Meeting getMeeting(int id){
         for(MeetingImpl meet : meetings){
@@ -65,6 +80,21 @@ public class ContactManagerImpl {
         }
         return null;
     }
+    
+    
+    public void addNewPastMeeting(Set<Contact> contacts, Calendar date, String text) throws IllegalArgumentException, NullPointerException {
+        if(!this.contacts.containsAll(contacts) || this.contacts.isEmpty()){
+            throw new IllegalArgumentException();
+        } else if (date == null || text == null || text.equalsIgnoreCase("")){
+            throw new NullPointerException();
+        } else {
+            PastMeetingImpl newMeet = new PastMeetingImpl(nextMeetingID, contacts, date);
+            newMeet.addNotes(text);
+            meetings.add(newMeet);
+            nextMeetingID++;
+        }
+    }
+    
     
     public void addNewContact(String name, String notes) throws NullPointerException {
         if(name == null || notes == null){
