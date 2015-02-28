@@ -72,6 +72,17 @@ public class ContactManagerImpl {
     }
     
     
+    public FutureMeeting getFutureMeeting(int id) throws IllegalArgumentException {
+        Meeting meet = getMeeting(id);
+        if(meet instanceof FutureMeeting) {
+            return (FutureMeeting) meet;
+        } else if (meet instanceof PastMeeting) {
+            throw new IllegalArgumentException();
+        } else {
+            return null;
+        }
+    }
+    
     public Meeting getMeeting(int id){
         for(MeetingImpl meet : meetings){
             if(meet.meetingID == id){
