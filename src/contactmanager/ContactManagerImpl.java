@@ -6,7 +6,6 @@ import interfaces.FutureMeeting;
 import interfaces.PastMeeting;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
