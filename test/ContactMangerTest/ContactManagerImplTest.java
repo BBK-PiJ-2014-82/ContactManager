@@ -479,4 +479,101 @@ public class ContactManagerImplTest {
         contactManager.getFutureMeeting(meetNum);
     }
     
+    /**
+     * Test getting a list of future meetings by contact.
+     */
+    @Test
+    public void testGetFutureMeetingListByContact(){
+        // add new contacts & create the multiple sets.
+        contactManager.addNewContact("James Hill", "Great");
+        contactManager.addNewContact("Saisai Hill", "Best");
+        
+        // create 3 lists of contacts.
+        Set<Contact> list1 = contactManager.getContacts(0, 1);
+        Set<Contact> list2 = contactManager.getContacts(0);
+        Set<Contact> list3 = contactManager.getContacts(1);
+        
+        // create variables
+        Calendar date;
+        boolean order;
+        
+        // add future meetings in non-chronological order.
+        date = new GregorianCalendar(2020, 6, 01);
+        contactManager.addFutureMeeting(list1, date);
+        date = new GregorianCalendar(2020, 1, 30);
+        contactManager.addFutureMeeting(list2, date);
+        date = new GregorianCalendar(2020, 12, 20);
+        contactManager.addFutureMeeting(list3, date);
+        date = new GregorianCalendar(2020, 9, 10);
+        contactManager.addFutureMeeting(list2, date);
+        
+        Contact testContact = (Contact)contactManager.getContacts(0);
+        List<Meeting> testList = contactManager.getFutureMeetingList(testContact);
+        
+        // check the size of the returned list.
+        int checkSize = 3;
+        int testSize = testList.size();
+        assertEquals("Incorrect list size returned.", checkSize, testSize);
+        
+        // check the returned list is in chronological order.
+        order = testList.get(0).getDate().compareTo(testList.get(1).getDate()) <= 0;
+        assertTrue("1st date not before 2nd date.", order);
+        order = testList.get(1).getDate().compareTo(testList.get(2).getDate()) <= 0;
+        assertTrue("2nd date not before 3rd date.", order);
+        
+        int exists = 0;
+        
+        // check the returned list contacts are correct.
+        for(Meeting meet : testList){
+            Set<Contact> newList = meet.getContacts();
+            for(Contact conts : newList){
+                if(conts.getName().equalsIgnoreCase("James Hill")){
+                    exists++;
+                }
+            }
+        }
+        
+        // check number of correctly identified contacts.
+        checkSize = 3;
+        testSize = exists;
+        assertEquals("Incorrect number of contacts identified.", checkSize, testSize);
+        
+    }
+    
+    /**
+     * Test contact without meetings returns an empty list.
+     */
+    @Test
+    public void testGetFutureMeetingListReturnsNullWithContactWithoutMeetings(){
+        // add new contacts.
+        contactManager.addNewContact("James Hill", "Great");
+        contactManager.addNewContact("Saisai Hill", "Best");
+        
+        // Create a new future meeting with the 1st contact.
+        contactList.add((Contact)contactManager.getContacts("Saisai"));
+        contactManager.addFutureMeeting(contactList, futureDate);
+        
+        Contact checkContact = (Contact) contactManager.getContacts("James");
+        
+        // Check that the returned meeting is null.
+        List<Meeting> testMeet = contactManager.getFutureMeetingList(checkContact);
+        boolean test = testMeet.isEmpty();
+        assertTrue("Returned list is not empty.", test);
+    }
+    
+    /**
+     * Test non-existent contact throws IllegalArgumentException.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testGetFutureMeetingListThrowsExceptionWithNonExistentContact(){
+        // add new contacts.
+        contactManager.addNewContact("James Hill", "Great");
+        
+        // Create non-existent contact
+        Contact noContact = new ContactImpl(1, "Saisai");
+        
+        // Perform the test
+        contactManager.getFutureMeetingList(noContact);
+    }
+    
 }
