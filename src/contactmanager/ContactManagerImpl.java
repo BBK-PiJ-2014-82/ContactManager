@@ -5,6 +5,8 @@ import interfaces.Meeting;
 import interfaces.FutureMeeting;
 import interfaces.PastMeeting;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -90,6 +92,24 @@ public class ContactManagerImpl {
             }
         }
         return null;
+    }
+    
+    
+    public List<Meeting> getFutureMeetingList(Contact contact) throws IllegalArgumentException {
+        List<Meeting> returnList = new LinkedList<>();
+        if(!contacts.contains((ContactImpl)contact)){
+            throw new IllegalArgumentException();
+        } else {
+            for(Meeting meet : meetings){
+                if(meet instanceof FutureMeeting){
+                    if(meet.getContacts().contains(contact)){
+                        returnList.add(meet);
+                    }
+                }
+            }
+        }
+        Collections.sort(returnList, (Meeting o1, Meeting o2) -> o1.getDate().compareTo(o2.getDate()));
+        return returnList;
     }
     
     
