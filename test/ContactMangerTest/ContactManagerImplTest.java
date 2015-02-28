@@ -319,16 +319,17 @@ public class ContactManagerImplTest {
         
         // Check that the notes returned are correct.
         checkNotes = notes;
-        testNotes = contactManager.getPastMeeting(0).getNotes;
+        testNotes = contactManager.getPastMeeting(0).getNotes();
         assertEquals("Incorrect date has been returned.", checkNotes, testNotes);
     }
     
     /**
-     * Test addNewPastMeeting throws exception on null contacts.
+     * Test addNewPastMeeting throws exception for empty list of contacts.
      */
     @Test (expected = IllegalArgumentException.class)
-    public void testAddNewPastMeetingThrowsExceptionForNullContacts(){
-        contactManager.addNewPastMeeting(contactList, pastDate, "Hello.");
+    public void testAddNewPastMeetingThrowsExceptionForEmptyContacts(){
+        contactList = new HashSet<>();
+        contactManager.addNewPastMeeting(contactList, pastDate, "Hello");
     }
     
     /**
@@ -336,9 +337,12 @@ public class ContactManagerImplTest {
      */
     @Test (expected = IllegalArgumentException.class)
     public void testAddNewPastMeetingThrowsExceptionForNonExistentContacts(){
-        Contact newContact = new ContactImpl(1, "James Hill");
-        contactList.add(newContact);
-        contactManager.addNewPastMeeting(contactList, pastDate, "Hello.");
+        // Create set that doesn't exist in ContactManager.
+        Set<Contact> nonExistList = new HashSet<>();
+        Contact nonExistContact = new ContactImpl(3, "Geoffrey");
+        nonExistList.add(nonExistContact);
+        
+        contactManager.addNewPastMeeting(nonExistList, pastDate, "Hello.");
     }
     
     /**
@@ -359,7 +363,7 @@ public class ContactManagerImplTest {
     public void testAddNewPastMeetingThrowsExceptionForNullNotes(){
         contactManager.addNewContact("James Hill", "Great");
         contactList = contactManager.getContacts(0);
-        String notes;
+        String notes = null;
         contactManager.addNewPastMeeting(contactList, pastDate, notes);
     }
     
@@ -392,14 +396,13 @@ public class ContactManagerImplTest {
     public void testGetPastMeetingThrowsExceptionForFutureMeetings(){
         // add new contacts & create the set.
         contactManager.addNewContact("James Hill", "Great");
-        contactManager.addNewContact("Saisai", "Best");
-        contactList = contactManager.getContacts();
+        contactList = contactManager.getContacts(0);
         
         // Add a future meeting to the list.
-        contactManager.addFutureMeeting(contactList, futureDate);
+        int meetNum = contactManager.addFutureMeeting(contactList, futureDate);
         
         // Test the condition.
-        contactManager.getPastMeeting(0);
+        contactManager.getPastMeeting(meetNum);
     }
     
 }
