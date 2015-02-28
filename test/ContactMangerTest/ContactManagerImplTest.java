@@ -405,4 +405,78 @@ public class ContactManagerImplTest {
         contactManager.getPastMeeting(meetNum);
     }
     
+    /**
+     * Test the addition and return of a future meeting.
+     */
+    @Test
+    public void testGetFutureMeeting(){
+        // add new contacts.
+        contactManager.addNewContact("James Hill", "Great");
+        contactManager.addNewContact("Saisai", "Best");
+        
+        // Create variables.
+        boolean exists;
+        Calendar checkDate;
+        Calendar testDate;
+        Set<Contact> contactSet;
+        
+        // Prepare the future meeting.
+        contactList = contactManager.getContacts(0,1);
+        contactManager.addFutureMeeting(contactList, futureDate);
+        
+        // Check the 1st contact was added to the meeting correctly.
+        contactSet = contactManager.getFutureMeeting(0).getContacts();
+        exists = false;
+        
+        for(Contact contacts : contactSet){
+            if(contacts.getName().equals("James Hill") && contacts.getNotes().equals("Great")){
+                exists = true;
+            }
+        }
+        assertTrue("Incorrect contacts have been returned.", exists);
+        
+        // Check the 2nd contact was added to the meeting correctly.
+        exists = false;
+        
+        for(Contact contacts : contactSet){
+            if(contacts.getName().equals("Saisai") && contacts.getNotes().equals("Best")){
+                exists = true;
+            }
+        }
+        assertTrue("Incorrect contacts have been returned.", exists);
+        
+        // Check the date on added meeting is correct.
+        checkDate = futureDate;
+        testDate = contactManager.getFutureMeeting(0).getDate();
+        assertEquals("Incorrect date has been returned.", checkDate, testDate);
+        
+    }
+    
+    /**
+     * Test getFutureMeeting returns null when meetingID doesn't exist.
+     */
+    @Test
+    public void testGetFutureMeetingReturnsNull(){
+        Meeting checkMeet = null;
+        Meeting testMeet = contactManager.getFutureMeeting(5);
+        assertEquals("The returned meeting is not null.", checkMeet, testMeet);
+    }
+    
+    /**
+     * Test getFutureMeeting throws incorrect exception when returned meeting is
+     * a past meeting.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testGetFutureMeetingThrowsExceptionForFutureMeetings(){
+        // add new contacts & create the set.
+        contactManager.addNewContact("James Hill", "Great");
+        contactList = contactManager.getContacts(0);
+        
+        // Add a future meeting to the list.
+        int meetNum = contactManager.addFutureMeeting(contactList, pastDate);
+        
+        // Test the condition.
+        contactManager.getFutureMeeting(meetNum);
+    }
+    
 }
