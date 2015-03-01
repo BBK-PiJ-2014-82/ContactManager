@@ -646,13 +646,17 @@ public class ContactManagerImplTest {
         assertTrue("There is an incorrect date in the returned list.", exists);
         
         // Create a new test for a past date.
-        date = new GregorianCalendar(2010, Calendar.DECEMBER, 20, 14, 0, 0);
+        date = new GregorianCalendar(2010, Calendar.DECEMBER, 20);
         testList = contactManager.getFutureMeetingList(date);
         
         // check the size of the returned list.
-        checkSize = 1;
+        checkSize = 2;
         testSize = testList.size();
         assertEquals("Incorrect list size returned.", checkSize, testSize);
+        
+        // check the returned list is in chronological order.
+        order = testList.get(0).getDate().compareTo(testList.get(1).getDate()) <= 0;
+        assertTrue("1st date not before 2nd date.", order);
         
         exists = true;
         
