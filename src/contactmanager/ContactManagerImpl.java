@@ -112,6 +112,27 @@ public class ContactManagerImpl {
     }
     
     
+    public List<Meeting> getFutureMeetingList(Calendar date) {
+        // Set variables.
+        List<Meeting> returnList = new LinkedList<>();
+        Calendar checkDate;
+        boolean sameDay;
+        
+        // Loop through the meetings checking & add to list when match found.
+        for(Meeting meet : meetings){
+            checkDate = meet.getDate();
+            sameDay = checkDate.get(Calendar.YEAR) == date.get(Calendar.YEAR) &&
+                    checkDate.get(Calendar.DAY_OF_YEAR) == date.get(Calendar.DAY_OF_YEAR);
+            if(sameDay){
+                returnList.add(meet);
+            }
+        }
+        
+        // Sort the collection & return it.
+        Collections.sort(returnList, (Meeting o1, Meeting o2) -> o1.getDate().compareTo(o2.getDate()));
+        return returnList;
+    }
+    
     public void addNewPastMeeting(Set<Contact> contacts, Calendar date, String text) throws IllegalArgumentException, NullPointerException {
         if(!this.contacts.containsAll(contacts) || this.contacts.isEmpty()){
             throw new IllegalArgumentException();
