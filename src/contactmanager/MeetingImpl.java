@@ -9,7 +9,7 @@ import java.util.Set;
  *
  * @author James
  */
-public class MeetingImpl implements interfaces.Meeting {
+public class MeetingImpl implements Meeting {
     
     /**
      * This is a unique ID through which the application can identify a

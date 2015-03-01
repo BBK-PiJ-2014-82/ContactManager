@@ -5,7 +5,7 @@ package contactmanager;
  * 
  * @author James
  */
-public class ContactImpl implements interfaces.Contact {
+public class ContactImpl implements Contact {
     
     /**
      * This is a unique ID through which the application can identify a

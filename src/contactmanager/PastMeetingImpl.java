@@ -1,6 +1,6 @@
 package contactmanager;
 
-import interfaces.Contact;
+import Contact;
 import java.util.Calendar;
 import java.util.Set;
 
@@ -9,7 +9,7 @@ import java.util.Set;
  *
  * @author James
  */
-public class PastMeetingImpl extends MeetingImpl implements interfaces.PastMeeting {
+public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
     
     /**
      * This String is the notes for the meeting.

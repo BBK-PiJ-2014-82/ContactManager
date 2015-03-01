@@ -9,7 +9,7 @@ import java.util.Set;
  * 
  * @author James
  */
-public class FutureMeetingImpl extends MeetingImpl implements interfaces.FutureMeeting {
+public class FutureMeetingImpl extends MeetingImpl implements FutureMeeting {
     
     /**
      * The class constructor.
