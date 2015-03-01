@@ -582,4 +582,114 @@ public class ContactManagerImplTest {
         contactManager.getFutureMeetingList(noContact);
     }
     
+    /**
+     * Test getting a list of meetings by date.  Note that even though the name
+     * of this tested method states that it is for future methods only, this is
+     * incorrect and has been confirmed by Sergio.
+     */
+    @Test
+    public void testGetFutureMeetingListByDate(){
+        // add new contacts & create the multiple sets.
+        contactManager.addNewContact("James Hill", "Great");
+        contactManager.addNewContact("Saisai Hill", "Best");
+        
+        // create 3 lists of contacts.
+        Set<Contact> list1 = contactManager.getContacts(0, 1);
+        Set<Contact> list2 = contactManager.getContacts(0);
+        Set<Contact> list3 = contactManager.getContacts(1);
+        
+        // create variables
+        Calendar date;
+        boolean order;
+        
+        // add meetings in non-chronological order.
+        date = new GregorianCalendar(2020, Calendar.JUNE, 1, 12, 30, 0);
+        contactManager.addFutureMeeting(list1, date);
+        date = new GregorianCalendar(2020, Calendar.JANUARY, 30, 15, 0, 0);
+        contactManager.addFutureMeeting(list2, date);
+        date = new GregorianCalendar(2010, Calendar.DECEMBER, 20, 14, 0, 0);
+        contactManager.addNewPastMeeting(list2, date, "old meeting");
+        date = new GregorianCalendar(2020, Calendar.DECEMBER, 20, 9, 30, 0);
+        contactManager.addFutureMeeting(list3, date);
+        date = new GregorianCalendar(2020, Calendar.JUNE, 1, 14, 0, 0);
+        contactManager.addFutureMeeting(list2, date);
+        date = new GregorianCalendar(2010, Calendar.DECEMBER, 20, 10, 0, 0);
+        contactManager.addNewPastMeeting(list2, date, "2nd old meeting");
+        
+        date = new GregorianCalendar(2020, Calendar.JUNE, 1);
+        List<Meeting> testList = contactManager.getFutureMeetingList(date);
+        
+        // check the size of the returned list.
+        int checkSize = 2;
+        int testSize = testList.size();
+        assertEquals("Incorrect list size returned.", checkSize, testSize);
+        
+        // check the returned list is in chronological order.
+        order = testList.get(0).getDate().compareTo(testList.get(1).getDate()) <= 0;
+        assertTrue("1st date not before 2nd date.", order);
+        order = testList.get(1).getDate().compareTo(testList.get(2).getDate()) <= 0;
+        assertTrue("2nd date not before 3rd date.", order);
+        
+        boolean exists = true;
+        
+        // check the returned list dates are correct.
+        for(Meeting meet : testList){
+            if(!(meet.getDate().compareTo(date) == 0)){
+                exists = false;
+            }
+        }
+        
+        // check all dates returned are correct.
+        assertTrue("There is an incorrect date in the returned list.", exists);
+        
+        // Create a new test for a past date.
+        date = new GregorianCalendar(2010, Calendar.DECEMBER, 20, 14, 0, 0);
+        testList = contactManager.getFutureMeetingList(date);
+        
+        // check the size of the returned list.
+        checkSize = 1;
+        testSize = testList.size();
+        assertEquals("Incorrect list size returned.", checkSize, testSize);
+        
+        // check the returned list is in chronological order.
+        order = testList.get(0).getDate().compareTo(testList.get(1).getDate()) <= 0;
+        assertTrue("1st date not before 2nd date.", order);
+        order = testList.get(1).getDate().compareTo(testList.get(2).getDate()) <= 0;
+        assertTrue("2nd date not before 3rd date.", order);
+        
+        exists = true;
+        
+        // check the returned list dates are correct.
+        for(Meeting meet : testList){
+            if(!(meet.getDate().compareTo(date) == 0)){
+                exists = false;
+            }
+        }
+        
+        // check all dates returned are correct.
+        assertTrue("There is an incorrect date in the returned list.", exists);
+    }
+    
+    /**
+     * Test contact without meetings returns an empty list.
+     */
+    @Test
+    public void testGetFutureMeetingListReturnsEmptyWhenNoMeetingExists(){
+        // add new contacts.
+        contactManager.addNewContact("James Hill", "Great");
+        contactManager.addNewContact("Saisai Hill", "Best");
+        
+        // Create a new future meeting with the 1st contact.
+        contactList = contactManager.getContacts("Saisai");
+        contactManager.addFutureMeeting(contactList, futureDate);
+        
+        // create a date.
+        Calendar checkDate = new GregorianCalendar(2015, Calendar.OCTOBER, 20, 12, 0, 15);
+        
+        // Check that the returned meeting is null.
+        List<Meeting> testMeet = contactManager.getFutureMeetingList(checkDate);
+        boolean test = testMeet.isEmpty();
+        assertTrue("Returned list is not empty.", test);
+    }
+    
 }
