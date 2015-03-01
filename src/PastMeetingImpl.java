@@ -1,4 +1,3 @@
-import Contact;
 import java.util.Calendar;
 import java.util.Set;
 
