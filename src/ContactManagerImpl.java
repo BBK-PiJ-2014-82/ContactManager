@@ -1,7 +1,3 @@
-import interfaces.Contact;
-import interfaces.Meeting;
-import interfaces.FutureMeeting;
-import interfaces.PastMeeting;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashSet;
