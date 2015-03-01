@@ -649,12 +649,6 @@ public class ContactManagerImplTest {
         testSize = testList.size();
         assertEquals("Incorrect list size returned.", checkSize, testSize);
         
-        // check the returned list is in chronological order.
-        order = testList.get(0).getDate().compareTo(testList.get(1).getDate()) <= 0;
-        assertTrue("1st date not before 2nd date.", order);
-        order = testList.get(1).getDate().compareTo(testList.get(2).getDate()) <= 0;
-        assertTrue("2nd date not before 3rd date.", order);
-        
         exists = true;
         
         // check the returned list dates are correct.
