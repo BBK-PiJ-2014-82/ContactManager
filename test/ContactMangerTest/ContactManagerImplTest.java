@@ -601,6 +601,7 @@ public class ContactManagerImplTest {
         // create variables
         Calendar date;
         boolean order;
+        boolean sameDay;
         
         // add meetings in non-chronological order.
         date = new GregorianCalendar(2020, Calendar.JUNE, 1, 12, 30, 0);
@@ -631,8 +632,12 @@ public class ContactManagerImplTest {
         boolean exists = true;
         
         // check the returned list dates are correct.
+        Calendar checkDate;
         for(Meeting meet : testList){
-            if(!(meet.getDate().compareTo(date) == 0)){
+            checkDate = meet.getDate();
+            sameDay = checkDate.get(Calendar.YEAR) == date.get(Calendar.YEAR) &&
+                    checkDate.get(Calendar.DAY_OF_YEAR) == date.get(Calendar.DAY_OF_YEAR);
+            if(!sameDay){
                 exists = false;
             }
         }
