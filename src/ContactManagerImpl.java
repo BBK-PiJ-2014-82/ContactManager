@@ -10,7 +10,7 @@ import java.util.LinkedList;
  * 
  * @author James
  */
-public class ContactManagerImpl implements ContactManager {
+public class ContactManagerImpl {
    
     /**
      * Linked List containing all the contacts being managed.
