@@ -502,6 +502,8 @@ public class ContactManagerImplTest {
         contactManager.addFutureMeeting(list1, date);
         date = new GregorianCalendar(2020, 1, 30);
         contactManager.addFutureMeeting(list2, date);
+        date = new GregorianCalendar(2010, 12, 20);
+        contactManager.addNewPastMeeting(list2, date, "old meeting");
         date = new GregorianCalendar(2020, 12, 20);
         contactManager.addFutureMeeting(list3, date);
         date = new GregorianCalendar(2020, 9, 10);
