@@ -133,6 +133,25 @@ public class ContactManagerImpl {
         return returnList;
     }
     
+    
+    public List<Meeting> getPastMeetingList(Contact contact) throws IllegalArgumentException {
+        List<Meeting> returnList = new LinkedList<>();
+        if(!contacts.contains((ContactImpl)contact)){
+            throw new IllegalArgumentException();
+        } else {
+            for(Meeting meet : meetings){
+                if(meet instanceof PastMeeting){
+                    if(meet.getContacts().contains(contact)){
+                        returnList.add(meet);
+                    }
+                }
+            }
+        }
+        Collections.sort(returnList, (Meeting o1, Meeting o2) -> o1.getDate().compareTo(o2.getDate()));
+        return returnList;
+    }
+    
+    
     public void addNewPastMeeting(Set<Contact> contacts, Calendar date, String text) throws IllegalArgumentException, NullPointerException {
         if(!this.contacts.containsAll(contacts) || this.contacts.isEmpty()){
             throw new IllegalArgumentException();
