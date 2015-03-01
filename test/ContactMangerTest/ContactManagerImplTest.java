@@ -658,7 +658,10 @@ public class ContactManagerImplTest {
         
         // check the returned list dates are correct.
         for(Meeting meet : testList){
-            if(!(meet.getDate().compareTo(date) == 0)){
+            checkDate = meet.getDate();
+            sameDay = checkDate.get(Calendar.YEAR) == date.get(Calendar.YEAR) &&
+                    checkDate.get(Calendar.DAY_OF_YEAR) == date.get(Calendar.DAY_OF_YEAR);
+            if(!sameDay){
                 exists = false;
             }
         }
