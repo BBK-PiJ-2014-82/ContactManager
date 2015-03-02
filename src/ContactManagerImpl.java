@@ -15,12 +15,12 @@ public class ContactManagerImpl {
     /**
      * Linked List containing all the contacts being managed.
      */
-    private Set<ContactImpl> contacts;
+    private final Set<Contact> contacts;
     
     /**
      * Linked List containing all the meetings being managed.
      */
-    private List<MeetingImpl> meetings;
+    private final List<Meeting> meetings;
     
     /**
      * This is the next free number to be used for contact IDs.
@@ -79,7 +79,7 @@ public class ContactManagerImpl {
     }
     
     public Meeting getMeeting(int id){
-        for(MeetingImpl meet : meetings){
+        for(Meeting meet : meetings){
             if(meet.getId() == id){
                 return meet;
             }
@@ -152,10 +152,31 @@ public class ContactManagerImpl {
         } else if (date == null || text == null || text.equalsIgnoreCase("")){
             throw new NullPointerException();
         } else {
-            PastMeetingImpl newMeet = new PastMeetingImpl(nextMeetingID, contacts, date);
-            newMeet.addNotes(text);
+            PastMeeting newMeet = new PastMeetingImpl(nextMeetingID, contacts, date, text);
             meetings.add(newMeet);
             nextMeetingID++;
+        }
+    }
+    
+    
+    public void addMeetingNotes(int id, String text) throws IllegalArgumentException, IllegalStateException, NullPointerException {
+        Meeting toAddMeet = getMeeting(id);
+        if(toAddMeet == null){
+            throw new IllegalArgumentException();
+        } else if (text == null || text.equalsIgnoreCase("")){
+            throw new NullPointerException();
+        } else {
+            if(toAddMeet instanceof PastMeeting){
+                PastMeeting pastMeet = (PastMeeting) toAddMeet;
+                String newNotes = pastMeet.getNotes() + text;
+                toAddMeet = new PastMeetingImpl((PastMeeting) toAddMeet, newNotes);
+            } else if (toAddMeet instanceof FutureMeeting){
+                if(toAddMeet.getDate().after(Calendar.getInstance())){
+                    throw new IllegalStateException();
+                } else {
+                    PastMeeting newMeet = new PastMeeting(toAddMeet, text);
+                }
+            }
         }
     }
     
@@ -177,8 +198,8 @@ public class ContactManagerImpl {
         boolean exists;
         for(int i = 0; i < ids.length; i++){
             exists = false;
-            for(ContactImpl cont : contacts){
-                if(cont.contactID == ids[i]){
+            for(Contact cont : contacts){
+                if(cont.getId() == ids[i]){
                     returnContacts.add(cont);
                     exists = true;
                 }
@@ -195,8 +216,8 @@ public class ContactManagerImpl {
             throw new NullPointerException();
         } else {
             HashSet<Contact> returnContacts = new HashSet();
-            for(ContactImpl cont : contacts){
-                if(cont.contactName.contains(name)){
+            for(Contact cont : contacts){
+                if(cont.getName().contains(name)){
                     returnContacts.add(cont);
                 }
             }
