@@ -1,5 +1,3 @@
-package contactmanager;
-
 /**
  * This class implements the 'Contact' interface.
  * 
