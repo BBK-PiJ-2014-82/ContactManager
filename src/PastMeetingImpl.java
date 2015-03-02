@@ -41,6 +41,7 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
      * This is the copy constructor.
      * 
      * @param meeting a meeting you will copy.
+     * @param notes the notes to be added to the meeting.
      */
     public PastMeetingImpl(PastMeeting meeting, String notes) {
         this(meeting.getId(), meeting.getContacts(), meeting.getDate());
