@@ -50,7 +50,7 @@ public class ContactManagerImpl {
             MeetingImpl newMeet = new FutureMeetingImpl(nextMeetingID, contacts, date);
             meetings.add(newMeet);
             nextMeetingID++;
-            return newMeet.meetingID;
+            return newMeet.getId();
         }
     }
     
@@ -80,7 +80,7 @@ public class ContactManagerImpl {
     
     public Meeting getMeeting(int id){
         for(MeetingImpl meet : meetings){
-            if(meet.meetingID == id){
+            if(meet.getId() == id){
                 return meet;
             }
         }
