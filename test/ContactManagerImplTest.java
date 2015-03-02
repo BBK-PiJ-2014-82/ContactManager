@@ -768,7 +768,7 @@ public class ContactManagerImplTest {
         
         // Create a new future meeting with the 1st contact.
         contactList = contactManager.getContacts("Saisai");
-        contactManager.addNewPastMeeting(contactList, futureDate, "Test");
+        contactManager.addNewPastMeeting(contactList, pastDate, "Test");
         
         Contact[] testArray = new Contact[1];
         contactManager.getContacts("James").toArray(testArray);
@@ -795,4 +795,132 @@ public class ContactManagerImplTest {
         contactManager.getPastMeetingList(noContact);
     }
     
+    /**
+     * Test add meeting notes to future meeting.
+     */
+    @Test
+    public void testAddMeetingNotesConvertingFutureMeeting(){
+        // Add new contacts & create the multiple sets.
+        contactManager.addNewContact("Saisai Hill", "Best");
+        
+        // Create a new future meeting with the 1st contact.
+        contactList = contactManager.getContacts("Saisai");
+        contactManager.addFutureMeeting(contactList, futureDate);
+        
+        // Create the notes.
+        String addNotes = "Hello.";
+        
+        // Convert the future meeting.
+        contactManager.addMeetingNotes(0, addNotes);
+        
+        // Test the meeting is now a past meeting.
+        boolean isPast = true;
+        Meeting meet = contactManager.getMeeting(0);
+        if(!(meet instanceof PastMeeting)) {
+            isPast = false;
+        }
+        assertTrue("The returned meeting was not a past meeting.", isPast);
+        
+        // Check that the notes are correct.
+        String checkNotes = addNotes;
+        String testNotes = "Hello.";
+        assertEquals("The notes were not identical.", checkNotes, testNotes);
+    }
+    
+    /**
+     * Test add meeting notes to past meeting.
+     */
+    @Test
+    public void testAddMeetingNotesAppendingPastMeeting(){
+        // Add new contacts & create the multiple sets.
+        contactManager.addNewContact("Saisai Hill", "Best");
+        
+        // Create original notes.
+        String firstNotes = "Notes: ";
+        
+        // Create a new future meeting with the 1st contact.
+        contactList = contactManager.getContacts("Saisai");
+        contactManager.addNewPastMeeting(contactList, pastDate, firstNotes);
+        
+        // Create the notes.
+        String addNotes = "Complete.";
+        
+        // Append notest to the meeting.
+        contactManager.addMeetingNotes(0, addNotes);
+        
+        // Test the meeting is still a past meeting.
+        boolean isPast = true;
+        Meeting meet = contactManager.getMeeting(0);
+        if(!(meet instanceof PastMeeting)) {
+            isPast = false;
+        }
+        assertTrue("The returned meeting was not a past meeting.", isPast);
+        
+        // Check that the notes are correct.
+        String checkNotes = firstNotes + addNotes;
+        String testNotes = "Notes: Complete.";
+        assertEquals("The notes were not identical.", checkNotes, testNotes);
+    }
+    
+    /**
+     * Test non-existent meeting throws exception.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testAddMeetingNotesWithoutMeetingThrowsException(){
+        contactManager.addMeetingNotes(5, "Hello.");
+    }
+    
+    /**
+     * Throws exception for meeting with date in the future.
+     */
+    @Test (expected = IllegalStateException.class)
+    public void testAddMeetingNotesWithFutureDateThrowsException(){
+        // Add new contacts & create the multiple sets.
+        contactManager.addNewContact("Saisai Hill", "Best");
+        
+        // Create a new future meeting with the 1st contact.
+        contactList = contactManager.getContacts("Saisai");
+        contactManager.addFutureMeeting(contactList, futureDate);
+        
+        // Test addMeetingNotes.
+        contactManager.addMeetingNotes(0, "Hello");
+    }
+    
+    /**
+     * Test throws exception for null string entered into notes.
+     */
+    @Test (expected = NullPointerException.class)
+    public void testAddMeetingNotesWithNullNotesThrowsException(){
+        // Add new contacts & create the multiple sets.
+        contactManager.addNewContact("Saisai Hill", "Best");
+        
+        // Create a new future meeting with the 1st contact.
+        contactList = contactManager.getContacts("Saisai");
+        contactManager.addNewPastMeeting(contactList, pastDate, "Hello.");
+        
+        // Create null string.
+        String noString = null;
+        
+        // Test addMeetingNotes.
+        contactManager.addMeetingNotes(0, noString);
+    }
+    
+    /**
+     * Test throws exception for blank string entered into notes.
+     */
+    @Test (expected = NullPointerException.class)
+    public void testAddMeetingNotesWithBlankNotesThrowsException(){
+        // Add new contacts & create the multiple sets.
+        contactManager.addNewContact("Saisai Hill", "Best");
+        
+        // Create a new future meeting with the 1st contact.
+        contactList = contactManager.getContacts("Saisai");
+        contactManager.addNewPastMeeting(contactList, pastDate, "Hello.");
+        
+        // Create blank string.
+        String blankString = "";
+        
+        // Test addMeetingNotes.
+        contactManager.addMeetingNotes(0, blankString);
+    }
 }
