@@ -12,17 +12,17 @@ public class MeetingImpl implements Meeting {
      * This is a unique ID through which the application can identify a
      * meeting.
      */
-    int meetingID;
+    private final int meetingID;
     
     /**
      * This is the date and time of the meeting stored as a Calendar object.
      */
-    Calendar meetingDate;
+    private Calendar meetingDate;
     
     /**
      * This is a set containing the Contacts who attended the meeting.
      */
-    Set<Contact> meetingContacts;
+    private Set<Contact> meetingContacts;
     
     /**
      * This is the class constructor.
