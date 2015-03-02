@@ -860,6 +860,16 @@ public class ContactManagerImplTest {
         String checkNotes = firstNotes + addNotes;
         String testNotes = "Notes: Complete.";
         assertEquals("The notes were not identical.", checkNotes, testNotes);
+        
+        // Check that there are no duplicate meetings.
+        contactList = contactManager.getContacts("Saisai");
+        Contact[] testArray = new Contact[1];
+        contactManager.getContacts("Saisai").toArray(testArray);
+        Contact checkContact = testArray[0];
+        List<Meeting> meetingList = contactManager.getPastMeetingList(checkContact);
+        int checkSize = 1;
+        int testSize = meetingList.size();
+        assertEquals("There are duplicate meetings.", checkSize, testSize);
     }
     
     /**
