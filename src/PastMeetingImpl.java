@@ -25,6 +25,19 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
     }
     
     /**
+     * This is the class constructor with notes.
+     * 
+     * @param meetingID a unique ID for this meeting.
+     * @param meetingContacts a list of attendees for the meeting.
+     * @param meetingDate the date at which the meeting takes place.
+     * @param notes the notes initially attached to this meeting.
+     */
+    public PastMeetingImpl(int meetingID, Set<Contact> meetingContacts, Calendar meetingDate, String notes) {
+        super(meetingID, meetingContacts, meetingDate);
+        meetingNotes = notes;
+    }
+    
+    /**
      * This is the copy constructor.
      * 
      * @param meeting a meeting you will copy.
