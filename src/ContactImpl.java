@@ -9,17 +9,17 @@ public class ContactImpl implements Contact {
      * This is a unique ID through which the application can identify a
      * contact.
      */
-    int contactID;
+    private int contactID;
     
     /**
      * This is the name given to the contact by the user.
      */
-    String contactName;
+    private String contactName;
     
     /**
      * This is a string of notes that can record information about a contact.
      */
-    String contactNotes;
+    private String contactNotes;
     
     /**
      * This is the class constructor.
