@@ -11,10 +11,10 @@ import static org.junit.Assert.assertEquals;
  */
 public class PastMeetingImplTest {
     
-    ContactImpl newContact;
+    Contact newContact;
     Set<Contact> contactList;
     GregorianCalendar date;
-    PastMeetingImpl newMeeting;
+    PastMeeting newMeeting;
     
     /**
      * Create a simple 'PastMeetingImpl' to use in all other tests.
@@ -58,7 +58,7 @@ public class PastMeetingImplTest {
         String testNotes;
         
         // Add the notes to the meeting.
-        newMeeting.addNotes(checkNotes);
+        newMeeting = new PastMeetingImpl(newMeeting, checkNotes);
         
         // Return and test the notes that were added to 'newMeeting'.
         testNotes = newMeeting.getNotes();
