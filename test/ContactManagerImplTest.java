@@ -725,7 +725,7 @@ public class ContactManagerImplTest {
         Contact[] testArray = new Contact[1];
         contactManager.getContacts(0).toArray(testArray);
         Contact testContact = testArray[0];
-        List<Meeting> testList = contactManager.getPastMeetingList(testContact);
+        List<PastMeeting> testList = contactManager.getPastMeetingList(testContact);
         
         // check the size of the returned list.
         int checkSize = 3;
@@ -775,7 +775,7 @@ public class ContactManagerImplTest {
         Contact checkContact = testArray[0];
         
         // Check that the returned meeting is null.
-        List<Meeting> testMeet = contactManager.getPastMeetingList(checkContact);
+        List<PastMeeting> testMeet = contactManager.getPastMeetingList(checkContact);
         boolean test = testMeet.isEmpty();
         assertTrue("Returned list is not empty.", test);
     }
@@ -866,7 +866,7 @@ public class ContactManagerImplTest {
         Contact[] testArray = new Contact[1];
         contactManager.getContacts("Saisai").toArray(testArray);
         Contact checkContact = testArray[0];
-        List<Meeting> meetingList = contactManager.getPastMeetingList(checkContact);
+        List<PastMeeting> meetingList = contactManager.getPastMeetingList(checkContact);
         int checkSize = 1;
         int testSize = meetingList.size();
         assertEquals("There are duplicate meetings.", checkSize, testSize);
