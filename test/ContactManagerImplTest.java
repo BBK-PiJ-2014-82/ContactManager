@@ -810,6 +810,9 @@ public class ContactManagerImplTest {
         // Create the notes.
         String addNotes = "Hello.";
         
+        Calendar cal = new GregorianCalendar();
+        cal.set(2021, 1, 1);
+        
         // Convert the future meeting.
         contactManager.addMeetingNotes(0, addNotes);
         
@@ -932,5 +935,57 @@ public class ContactManagerImplTest {
         
         // Test addMeetingNotes.
         contactManager.addMeetingNotes(0, blankString);
+    }
+    
+    @Test
+    public void testFlush(){
+        // Create variables.
+        String name1 = "James Hill";
+        String name2 = "Saisai";
+        String note1 = "Great";
+        String note2 = "Best";
+        String checkString;
+        String testString;
+        Contact[] contactArray;
+        
+        // Create a file.
+        contactManager.addNewContact(name1, note1);
+        contactManager.addNewContact(name2, note2);
+        contactManager.addFutureMeeting(contactManager.getContacts(0, 1), futureDate);
+        contactManager.addNewPastMeeting(contactManager.getContacts(name1), pastDate, "What's going on?");
+        contactManager.flush();
+        
+        // Load & then test the new contact manager.
+        ContactManager loadedCM = new ContactManagerImpl();
+        
+        // return set using ID's.
+        contactList = loadedCM.getContacts(0,1);
+        
+        // Test the size of the set is correct.
+        int checkSize = 2;
+        int testSize = contactList.size();
+        assertEquals("Incorrect size returned.", checkSize, testSize);
+        
+        // Test the 1st contact name is correct.
+        contactArray = loadedCM.getContacts(0).toArray(new Contact[1]);
+        checkString = contactArray[0].getName();
+        testString = name1;
+        assertEquals("Incorrect name1 returned.", checkString, testString);
+        
+        // Test the 1st contact note is correct.
+        checkString = contactArray[0].getNotes();
+        testString = note1;
+        assertEquals("Incorrect note1 returned.", checkString, testString);
+        
+        // Test the 2nd contact name is correct.
+        contactArray = loadedCM.getContacts(1).toArray(new Contact[1]);
+        checkString = contactArray[0].getName();
+        testString = name2;
+        assertEquals("Incorrect name2 returned.", checkString, testString);
+        
+        // Test the 2nd contact note is correct.
+        checkString = contactArray[0].getNotes();
+        testString = note2;
+        assertEquals("Incorrect note2 returned.", checkString, testString);
     }
 }
