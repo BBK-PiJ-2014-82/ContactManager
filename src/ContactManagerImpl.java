@@ -4,6 +4,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.parsers.ParserConfigurationException;
+
 
 /**
  * An implementation of the 'ContactManager' class.
@@ -229,6 +233,13 @@ public class ContactManagerImpl implements ContactManager {
     
     @Override
     public void flush(){
-        
+        try {
+            contactManagerXMLWriter builder;
+            builder = new contactManagerXMLWriterImpl();
+            builder.build(contacts, meetings, nextContactID, nextMeetingID);
+            builder.print();
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(ContactManagerImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
