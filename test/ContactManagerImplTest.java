@@ -1,5 +1,6 @@
 import java.io.File;
 import java.util.*;
+import javax.xml.xpath.XPathExpressionException;
 import org.junit.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -23,7 +24,7 @@ public class ContactManagerImplTest {
      * Create a ContactManagerImplTest to use in all tests.
      */
     @Before
-    public void initialize(){
+    public void initialize() throws XPathExpressionException{
         contactManager = new ContactManagerImpl();
         pastDate = new GregorianCalendar(2000, 01, 01);
         futureDate = new GregorianCalendar(2020, 01, 01);
@@ -946,7 +947,7 @@ public class ContactManagerImplTest {
     }
     
     @Test
-    public void testFlush(){
+    public void testFlush() throws XPathExpressionException{
         // Create variables.
         String name1 = "James Hill";
         String name2 = "Saisai";
