@@ -33,7 +33,8 @@ public interface ContactManagerXMLParser {
     /**
      * Parse the meetings and store them into a List.
      * 
+     * @param contacts a list of the contacts for this contact manager.
      * @return the List of meetings.
      */
-    public List<Meeting> parseMeetings();
+    public List<Meeting> parseMeetings(Set<Contact> contacts);
 }
