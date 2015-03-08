@@ -58,14 +58,14 @@ public class contactManagerXMLWriterImpl implements contactManagerXMLWriter {
     }
     
     @Override
-    public void print(){
+    public void print(String fileName){
         Transformer trans;
         try {
             trans = TransformerFactory.newInstance().newTransformer();
             trans.setOutputProperty(OutputKeys.INDENT, "yes");
             trans.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
             DOMSource source = new DOMSource(doc);
-            StreamResult file = new StreamResult(new File("C:\\Users\\James\\Desktop\\Contact Manager.xml"));
+            StreamResult file = new StreamResult(new File(fileName));
             trans.transform(source, file);
         } catch (TransformerConfigurationException ex) {
             Logger.getLogger(contactManagerXMLWriterImpl.class.getName()).log(Level.SEVERE, null, ex);
