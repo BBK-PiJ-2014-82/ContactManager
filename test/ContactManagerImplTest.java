@@ -30,7 +30,7 @@ public class ContactManagerImplTest {
     }
     
     @After
-    public void finalize(){
+    public void destroyFile(){
         String fileName = "C:/Users/James/Desktop/Contact Manager.xml";
         File file = new File(fileName);
         file.delete();
