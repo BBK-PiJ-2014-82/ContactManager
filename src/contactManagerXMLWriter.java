@@ -21,6 +21,8 @@ public interface contactManagerXMLWriter {
     
     /**
      * Prints a DOM document to a file on the users system.
+     * 
+     * @param fileName the file to be printed to.
      */
-    public void print();
+    public void print(String fileName);
 }
