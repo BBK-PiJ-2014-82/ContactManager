@@ -130,9 +130,10 @@ public class contactManagerXMLWriterImpl implements contactManagerXMLWriter {
         e.appendChild(createTextElement("meetingDay", ""+meet.getDate().get(Calendar.DAY_OF_MONTH)));
         e.appendChild(createTextElement("meetingHour", ""+meet.getDate().get(Calendar.HOUR_OF_DAY)));
         e.appendChild(createTextElement("meetingMinute", ""+meet.getDate().get(Calendar.MINUTE)));
-        e.appendChild(doc.createElement("meetingContacts"));
+        Element meetCons = doc.createElement("meetingContacts");
+        e.appendChild(meetCons);
         for(Contact cons : meet.getContacts()){
-            e.appendChild(createTextElement("contactID", ""+cons.getId()));
+            meetCons.appendChild(createTextElement("contactID", ""+cons.getId()));
         }
         if(meet instanceof PastMeeting){
             PastMeeting pastMeet = (PastMeeting)meet;
