@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.*;
 import org.junit.*;
 import static org.junit.Assert.assertEquals;
@@ -26,6 +27,13 @@ public class ContactManagerImplTest {
         contactManager = new ContactManagerImpl();
         pastDate = new GregorianCalendar(2000, 01, 01);
         futureDate = new GregorianCalendar(2020, 01, 01);
+    }
+    
+    @After
+    public void finalize(){
+        String fileName = "C:/Users/James/Desktop/Contact Manager.xml";
+        File file = new File(fileName);
+        file.delete();
     }
     
     /**
@@ -734,7 +742,7 @@ public class ContactManagerImplTest {
         
         // check the returned list is in chronological order.
         order = testList.get(0).getDate().compareTo(testList.get(1).getDate()) <= 0;
-        assertTrue("1st date not before 2nd date.", order);
+    assertTrue("1st date not before 2nd date.", order);
         order = testList.get(1).getDate().compareTo(testList.get(2).getDate()) <= 0;
         assertTrue("2nd date not before 3rd date.", order);
         
