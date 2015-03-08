@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashSet;
@@ -7,6 +9,7 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 
 /**
  * An implementation of the 'ContactManager' class.
@@ -18,36 +21,45 @@ public class ContactManagerImpl implements ContactManager {
     /**
      * The directory of the file for saving and loading the contact manager.
      */
-    String fileName = "C:\\Users\\James\\Desktop\\Contact Manager.xml";
+    String fileName = "./Desktop/Contact Manager.xml";
     
     /**
      * Linked List containing all the contacts being managed.
      */
-    private final Set<Contact> contacts;
+    private Set<Contact> contacts = new HashSet<>();
     
     /**
      * Linked List containing all the meetings being managed.
      */
-    private final List<Meeting> meetings;
+    private List<Meeting> meetings = new LinkedList<>();
     
     /**
      * This is the next free number to be used for contact IDs.
      */
-    private int nextContactID;
+    private int nextContactID = 0;
     
     /**
      * This is the next free number to be used for meeting IDs.
      */
-    private int nextMeetingID;
+    private int nextMeetingID = 0;
     
     /**
      * This is the class constructor.
      */
     public ContactManagerImpl(){
-        contacts = new HashSet<>();
-        meetings = new LinkedList<>();
-        nextContactID = 0;
-        nextMeetingID = 0;
+        File file = new File(fileName);
+        if(file.exists()){
+            ContactManagerXMLParser parser;
+            try {
+                parser = new ContactManagerXMLParserImpl(fileName);
+                contacts = parser.parseContacts();
+                meetings = parser.parseMeetings(contacts);
+                nextContactID = parser.parseNextContactID();
+                nextMeetingID = parser.parseNextMeetingID();
+            } catch (ParserConfigurationException | SAXException | IOException ex) {
+                Logger.getLogger(ContactManagerImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
     @Override
