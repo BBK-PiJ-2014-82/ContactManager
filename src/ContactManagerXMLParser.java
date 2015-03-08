@@ -10,6 +10,20 @@ import java.util.Set;
 public interface ContactManagerXMLParser {
     
     /**
+     * Parse the nextContactID.
+     * 
+     * @return the next ID to be used for contact numbers.
+     */
+    public int parseNextContactID();
+    
+    /**
+     * Parse the nextMeetingID.
+     * 
+     * @return the next ID to be used for meeting numbers.
+     */
+    public int parseNextMeetingID();
+    
+    /**
      * Parse the contacts and store them in a contact Set.
      * 
      * @return the Set of contacts.
