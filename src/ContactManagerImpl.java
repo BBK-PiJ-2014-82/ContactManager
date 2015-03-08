@@ -33,12 +33,12 @@ public class ContactManagerImpl implements ContactManager {
     /**
      * This is the next free number to be used for contact IDs.
      */
-    private int nextContactID = 0;
+    private int nextContactID;
     
     /**
      * This is the next free number to be used for meeting IDs.
      */
-    private int nextMeetingID = 0;
+    private int nextMeetingID;
     
     /**
      * This is the class constructor.
@@ -46,6 +46,8 @@ public class ContactManagerImpl implements ContactManager {
     public ContactManagerImpl(){
         contacts = new HashSet<>();
         meetings = new LinkedList<>();
+        nextContactID = 0;
+        nextMeetingID = 0;
     }
     
     @Override
