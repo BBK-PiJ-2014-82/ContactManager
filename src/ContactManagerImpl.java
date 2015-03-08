@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
 import org.xml.sax.SAXException;
 
 /**
@@ -21,7 +22,7 @@ public class ContactManagerImpl implements ContactManager {
     /**
      * The directory of the file for saving and loading the contact manager.
      */
-    String fileName = "./Desktop/Contact Manager.xml";
+    String fileName = "C:/Users/James/Desktop/Contact Manager.xml";
     
     /**
      * Linked List containing all the contacts being managed.
@@ -45,17 +46,19 @@ public class ContactManagerImpl implements ContactManager {
     
     /**
      * This is the class constructor.
+     * 
+     * @throws javax.xml.xpath.XPathExpressionException
      */
-    public ContactManagerImpl(){
+    public ContactManagerImpl() throws XPathExpressionException{
         File file = new File(fileName);
         if(file.exists()){
-            ContactManagerXMLParser parser;
             try {
+                ContactManagerXMLParser parser;
                 parser = new ContactManagerXMLParserImpl(fileName);
-                contacts = parser.parseContacts();
-                meetings = parser.parseMeetings(contacts);
                 nextContactID = parser.parseNextContactID();
                 nextMeetingID = parser.parseNextMeetingID();
+                contacts = parser.parseContacts();
+                meetings = parser.parseMeetings(contacts);
             } catch (ParserConfigurationException | SAXException | IOException ex) {
                 Logger.getLogger(ContactManagerImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
