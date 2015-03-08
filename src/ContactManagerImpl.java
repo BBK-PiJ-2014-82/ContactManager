@@ -8,14 +8,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
 
-
 /**
  * An implementation of the 'ContactManager' class.
  * 
  * @author James
  */
 public class ContactManagerImpl implements ContactManager {
-   
+    
+    /**
+     * The directory of the file for saving and loading the contact manager.
+     */
+    String fileName = "C:\\Users\\James\\Desktop\\Contact Manager.xml";
+    
     /**
      * Linked List containing all the contacts being managed.
      */
@@ -237,7 +241,7 @@ public class ContactManagerImpl implements ContactManager {
             contactManagerXMLWriter builder;
             builder = new contactManagerXMLWriterImpl();
             builder.build(contacts, meetings, nextContactID, nextMeetingID);
-            builder.print();
+            builder.print(fileName);
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(ContactManagerImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
