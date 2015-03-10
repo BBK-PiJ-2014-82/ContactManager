@@ -22,7 +22,7 @@ public class ContactManagerImpl implements ContactManager {
     /**
      * The directory of the file for saving and loading the contact manager.
      */
-    String fileName = "C:/Users/James/Desktop/Contact Manager.xml";
+    String fileName = ".Contact Manager.xml";
     
     /**
      * Linked List containing all the contacts being managed.
