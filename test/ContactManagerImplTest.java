@@ -22,6 +22,8 @@ public class ContactManagerImplTest {
     
     /**
      * Create a ContactManagerImplTest to use in all tests.
+     * 
+     * @throws javax.xml.xpath.XPathExpressionException
      */
     @Before
     public void initialize() throws XPathExpressionException{
@@ -30,9 +32,12 @@ public class ContactManagerImplTest {
         futureDate = new GregorianCalendar(2020, 01, 01);
     }
     
+    /**
+     * Destroys any files that are created during the testing process.
+     */
     @After
     public void destroyFile(){
-        String fileName = "C:/Users/James/Desktop/Contact Manager.xml";
+        String fileName = ".Contact Manager.xml";
         File file = new File(fileName);
         file.delete();
     }
