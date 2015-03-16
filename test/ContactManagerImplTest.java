@@ -855,14 +855,14 @@ public class ContactManagerImplTest {
         // Create original notes.
         String firstNotes = "Notes: ";
         
-        // Create a new future meeting with the 1st contact.
+        // Create a new past meeting with the 1st contact.
         contactList = contactManager.getContacts("Saisai");
         contactManager.addNewPastMeeting(contactList, pastDate, firstNotes);
         
         // Create the notes.
         String addNotes = "Complete.";
         
-        // Append notest to the meeting.
+        // Append notes to the meeting.
         contactManager.addMeetingNotes(0, addNotes);
         
         // Test the meeting is still a past meeting.
@@ -874,8 +874,9 @@ public class ContactManagerImplTest {
         assertTrue("The returned meeting was not a past meeting.", isPast);
         
         // Check that the notes are correct.
+        PastMeeting prevMeet = (PastMeeting)contactManager.getMeeting(0);
         String checkNotes = firstNotes + addNotes;
-        String testNotes = "Notes: Complete.";
+        String testNotes = prevMeet.getNotes();
         assertEquals("The notes were not identical.", checkNotes, testNotes);
         
         // Check that there are no duplicate meetings.
