@@ -199,7 +199,7 @@ public class ContactManagerImpl implements ContactManager {
                 if(toAddMeet.getDate().after(Calendar.getInstance())){
                     throw new IllegalStateException();
                 } else {
-                    meetings.set(id, new PastMeetingImpl((PastMeeting)toAddMeet, text));
+                    meetings.set(id, new PastMeetingImpl(toAddMeet, text));
                 }
             }
         }
