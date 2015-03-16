@@ -194,13 +194,12 @@ public class ContactManagerImpl implements ContactManager {
         } else {
             if(toAddMeet instanceof PastMeeting){
                 PastMeeting pastMeet = (PastMeeting) toAddMeet;
-                String newNotes = pastMeet.getNotes() + text;
-                toAddMeet = new PastMeetingImpl((PastMeeting) toAddMeet, newNotes);
+                meetings.set(id, new PastMeetingImpl(pastMeet, text));
             } else if (toAddMeet instanceof FutureMeeting){
                 if(toAddMeet.getDate().after(Calendar.getInstance())){
                     throw new IllegalStateException();
                 } else {
-                    PastMeeting newMeet = new PastMeetingImpl((PastMeeting)toAddMeet, text);
+                    meetings.set(id, new PastMeetingImpl((PastMeeting)toAddMeet, text));
                 }
             }
         }
