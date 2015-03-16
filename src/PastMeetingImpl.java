@@ -38,14 +38,14 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
     }
     
     /**
-     * This is the copy constructor.
+     * This is the copy constructor with notes.
      * 
      * @param meeting a meeting you will copy.
      * @param notes the notes to be added to the meeting.
      */
     public PastMeetingImpl(PastMeeting meeting, String notes) {
-        this(meeting.getId(), meeting.getContacts(), meeting.getDate());
-        meetingNotes = notes;
+        super(meeting.getId(), meeting.getContacts(), meeting.getDate());
+        meetingNotes = meeting.getNotes() + notes;
     }
     
     @Override
