@@ -814,18 +814,17 @@ public class ContactManagerImplTest {
      */
     @Test
     public void testAddMeetingNotesConvertingFutureMeeting(){
+        Calendar cal = new GregorianCalendar();
+        
         // Add new contacts & create the multiple sets.
         contactManager.addNewContact("Saisai Hill", "Best");
         
         // Create a new future meeting with the 1st contact.
         contactList = contactManager.getContacts("Saisai");
-        contactManager.addFutureMeeting(contactList, futureDate);
+        contactManager.addFutureMeeting(contactList, cal);
         
         // Create the notes.
         String addNotes = "Hello.";
-        
-        Calendar cal = new GregorianCalendar();
-        cal.set(2021, 1, 1);
         
         // Convert the future meeting.
         contactManager.addMeetingNotes(0, addNotes);
