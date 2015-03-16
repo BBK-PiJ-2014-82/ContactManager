@@ -43,9 +43,12 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
      * @param meeting a meeting you will copy.
      * @param notes the notes to be added to the meeting.
      */
-    public PastMeetingImpl(PastMeeting meeting, String notes) {
+    public PastMeetingImpl(Meeting meeting, String notes) {
         super(meeting.getId(), meeting.getContacts(), meeting.getDate());
-        meetingNotes = meeting.getNotes() + notes;
+        if(meeting instanceof PastMeeting){
+            PastMeeting pastMeet = (PastMeeting) meeting;
+            meetingNotes = pastMeet.getNotes() + notes;
+        }
     }
     
     @Override
