@@ -77,25 +77,25 @@ public class ContactManagerXMLParserImpl implements ContactManagerXMLParser {
     public List<Meeting> parseMeetings(Set<Contact> contacts) throws XPathExpressionException {
         List<Meeting> meetings = new LinkedList<>();
         int meetingsCount;
-        meetingsCount = Integer.parseInt(path.evaluate("count(/contactManager/meetingsList/meetings)", doc));
+        meetingsCount = Integer.parseInt(path.evaluate("count(/contactManager/meetingsList/meeting)", doc));
         for(int i = 1; i <= meetingsCount; i++){
             // Get the meeting id number.
-            int meetID = Integer.parseInt(path.evaluate("/contactManager/meetingsList/meetings["+i+"]/meetingID", doc));
+            int meetID = Integer.parseInt(path.evaluate("/contactManager/meetingsList/meeting["+i+"]/meetingID", doc));
             
             // Create the calendar date for this meeting.
-            int year = Integer.parseInt(path.evaluate("/contactManager/meetingsList/meetings["+i+"]/meetingYear", doc));
-            int month = Integer.parseInt(path.evaluate("/contactManager/meetingsList/meetings["+i+"]/meetingMonth", doc));
-            int day = Integer.parseInt(path.evaluate("/contactManager/meetingsList/meetings["+i+"]/meetingDay", doc));
-            int hour = Integer.parseInt(path.evaluate("/contactManager/meetingsList/meetings["+i+"]/meetingHour", doc));
-            int minute = Integer.parseInt(path.evaluate("/contactManager/meetingsList/meetings["+i+"]/meetingMinute", doc));
+            int year = Integer.parseInt(path.evaluate("/contactManager/meetingsList/meeting["+i+"]/meetingYear", doc));
+            int month = Integer.parseInt(path.evaluate("/contactManager/meetingsList/meeting["+i+"]/meetingMonth", doc));
+            int day = Integer.parseInt(path.evaluate("/contactManager/meetingsList/meeting["+i+"]/meetingDay", doc));
+            int hour = Integer.parseInt(path.evaluate("/contactManager/meetingsList/meeting["+i+"]/meetingHour", doc));
+            int minute = Integer.parseInt(path.evaluate("/contactManager/meetingsList/meeting["+i+"]/meetingMinute", doc));
             Calendar date = new GregorianCalendar(year, month, day, hour, minute);
             
             // Get the list of contacts by id numbers.
             int contactCount;
-            contactCount = Integer.parseInt(path.evaluate("count(/contactManager/meetingsList/meetings["+i+"]/meetingContacts)", doc));
+            contactCount = Integer.parseInt(path.evaluate("count(/contactManager/meetingsList/meeting["+i+"]/meetingContacts)", doc));
             Set<Contact> newContacts = new HashSet<>();
             for(int j = 1; j <= contactCount; j++){
-                int contID = Integer.parseInt(path.evaluate("/contactManager/meetingsList/meetings["+i+"]/meetingContacts/contactID", doc));
+                int contID = Integer.parseInt(path.evaluate("/contactManager/meetingsList/meeting["+i+"]/meetingContacts/contactID["+j+"]", doc));
                 for(Contact cons : contacts){
                     if(cons.getId() == contID){
                         newContacts.add(cons);
@@ -104,11 +104,11 @@ public class ContactManagerXMLParserImpl implements ContactManagerXMLParser {
             }
             
             // Get the notes for this meeting.
-            String notes = path.evaluate("/contactManager/meetingsList/meetings["+i+"]/meetingNotes", doc);
+            String notes = path.evaluate("/contactManager/meetingsList/meeting["+i+"]/meetingNotes", doc);
             
             // Create the meeting.
             Meeting newMeet;
-            if(notes.equalsIgnoreCase("")){
+            if(date.after(new GregorianCalendar())){
                 newMeet = new FutureMeetingImpl(meetID, newContacts, date);
             } else {
                 newMeet = new PastMeetingImpl(meetID, newContacts, date, notes);
