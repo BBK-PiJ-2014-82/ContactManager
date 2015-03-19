@@ -813,15 +813,17 @@ public class ContactManagerImplTest {
      * Test add meeting notes to future meeting.
      */
     @Test
-    public void testAddMeetingNotesConvertingFutureMeeting(){
-        Calendar cal;
+    public void testAddMeetingNotesConvertingFutureMeeting() throws InterruptedException{
+        Calendar cal = new GregorianCalendar();
         
         // Add new contacts & create the multiple sets.
         contactManager.addNewContact("Saisai Hill", "Best");
         
         // Create a new future meeting with the 1st contact.
         contactList = contactManager.getContacts("Saisai");
-        contactManager.addFutureMeeting(contactList, cal = new GregorianCalendar());
+        cal.add(Calendar.MILLISECOND, 10);
+        contactManager.addFutureMeeting(contactList, cal);
+        Thread.sleep(20);
         
         // Create the notes.
         String addNotes = "Hello.";
