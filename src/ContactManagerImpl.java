@@ -22,7 +22,7 @@ public class ContactManagerImpl implements ContactManager {
     /**
      * The directory of the file for saving and loading the contact manager.
      */
-    String fileName = ".Contact Manager.xml";
+    String fileName = "Contact Manager.xml";
     
     /**
      * Linked List containing all the contacts being managed.
@@ -72,7 +72,7 @@ public class ContactManagerImpl implements ContactManager {
         } else if (date.before(Calendar.getInstance())){
             throw new IllegalArgumentException();
         } else {
-            MeetingImpl newMeet = new FutureMeetingImpl(nextMeetingID, contacts, date);
+            Meeting newMeet = new FutureMeetingImpl(nextMeetingID, contacts, date);
             meetings.add(newMeet);
             nextMeetingID++;
             return newMeet.getId();
@@ -116,7 +116,7 @@ public class ContactManagerImpl implements ContactManager {
     @Override
     public List<Meeting> getFutureMeetingList(Contact contact) throws IllegalArgumentException {
         List<Meeting> returnList = new LinkedList<>();
-        if(!contacts.contains((ContactImpl)contact)){
+        if(!contacts.contains(contact)){
             throw new IllegalArgumentException();
         } else {
             for(Meeting meet : meetings){
