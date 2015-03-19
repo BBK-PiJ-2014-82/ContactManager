@@ -37,7 +37,7 @@ public class ContactManagerImplTest {
      */
     @After
     public void destroyFile(){
-        String fileName = ".Contact Manager.xml";
+        String fileName = "Contact Manager.xml";
         File file = new File(fileName);
         file.delete();
     }
@@ -814,14 +814,14 @@ public class ContactManagerImplTest {
      */
     @Test
     public void testAddMeetingNotesConvertingFutureMeeting(){
-        Calendar cal = new GregorianCalendar();
+        Calendar cal;
         
         // Add new contacts & create the multiple sets.
         contactManager.addNewContact("Saisai Hill", "Best");
         
         // Create a new future meeting with the 1st contact.
         contactList = contactManager.getContacts("Saisai");
-        contactManager.addFutureMeeting(contactList, cal);
+        contactManager.addFutureMeeting(contactList, cal = new GregorianCalendar());
         
         // Create the notes.
         String addNotes = "Hello.";
@@ -952,7 +952,7 @@ public class ContactManagerImplTest {
     }
     
     @Test
-    public void testFlush() throws XPathExpressionException{
+    public void testFlush() throws XPathExpressionException {
         // Create variables.
         String name1 = "James Hill";
         String name2 = "Saisai";
@@ -1001,5 +1001,24 @@ public class ContactManagerImplTest {
         checkString = contactArray[0].getNotes();
         testString = note2;
         assertEquals("Incorrect note2 returned.", checkString, testString);
+        
+        // Test the number of future meetings is correct.
+        checkSize = 1;
+        testSize = loadedCM.getFutureMeetingList(futureDate).size();
+        assertEquals("Incorrect number of meetings returned.", checkSize, testSize);
+        
+        // Add new contacts and meetings
+        loadedCM.addNewContact("Paul", "Strange guy");
+        loadedCM.addFutureMeeting(loadedCM.getContacts(2,0,1), futureDate);
+        loadedCM.addNewPastMeeting(loadedCM.getContacts("Paul"), pastDate, "What happened?");
+        loadedCM.flush();
+        
+        // return set using ID's.
+        contactList = loadedCM.getContacts(0,1,2);
+        
+        // Test the size of the set is correct.
+        checkSize = 3;
+        testSize = contactList.size();
+        assertEquals("Incorrect size returned.", checkSize, testSize);
     }
 }
