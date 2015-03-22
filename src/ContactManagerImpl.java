@@ -13,7 +13,9 @@ import javax.xml.xpath.XPathExpressionException;
 import org.xml.sax.SAXException;
 
 /**
- * An implementation of the 'ContactManager' class.
+ * An implementation of the 'ContactManager' class.  This includes central
+ * lists of the meetings and contacts as well as a record of the number of
+ * meetings and contacts created so that numbers can be assigned from here.
  * 
  * @author James
  */
@@ -35,17 +37,20 @@ public class ContactManagerImpl implements ContactManager {
     private List<Meeting> meetings = new LinkedList<>();
     
     /**
-     * This is the next free number to be used for contact IDs.
+     * This is the next free number to be used for contact IDs.  The contacts
+     * are assigned numbers from the Contact Manager.
      */
     private int nextContactID = 0;
     
     /**
-     * This is the next free number to be used for meeting IDs.
+     * This is the next free number to be used for meeting IDs.  The meetings
+     * are assigned numbers from the Contact Manager.
      */
     private int nextMeetingID = 0;
     
     /**
-     * This is the class constructor.
+     * This is the class constructor.  If there is a saved 'Contact Manager'
+     * file then the code will parse the data in from the XML file.
      * 
      * @throws javax.xml.xpath.XPathExpressionException
      */
